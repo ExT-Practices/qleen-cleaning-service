@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const services = [
   {
@@ -41,92 +41,193 @@ const services = [
   }
 ];
 
-// 1. The clearly named individual Card Component
 export function StickyServiceCard({ service, index }) {
+  const containerRef = useRef(null);
+  const [style, setStyle] = useState({
+    opacity: 0,
+    transform: 'scale(0.9) translateY(30px)',
+  });
+
+  useEffect(() => {
+    let ticking = false;
+
+    const updateStyles = () => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      // Calculate scroll progress (0 when entering bottom of screen, 1 when 25% from top/centered)
+      const start = windowHeight;
+      const end = windowHeight * 0.3 + (index * 30);
+      
+      let progress = (start - rect.top) / (start - end);
+      progress = Math.max(0, Math.min(1, progress));
+      
+      setStyle({
+        opacity: progress,
+        transform: `scale(${0.9 + progress * 0.1}) translateY(${(1 - progress) * 30}px)`,
+      });
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateStyles);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+    
+    // Initial calculation
+    updateStyles();
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, [index]);
+
+  // Use solid rgb colors to prevent stacked cards from showing through
+  const alpha = 1 - index * 0.07;
+  const r = Math.round(75 * alpha + 255 * (1 - alpha));
+  const g = Math.round(162 * alpha + 255 * (1 - alpha));
+  const b = Math.round(100 * alpha + 255 * (1 - alpha));
+  const baseGreen = `rgb(${r}, ${g}, ${b})`;
+
   return (
     <div
-      className="sticky shadow-2xl rounded-[2.5rem] p-8 md:p-14 overflow-hidden border border-white/10"
+      ref={containerRef}
+      className="sticky shadow-2xl rounded-[2.5rem] p-8 md:p-10 lg:p-12 overflow-hidden border border-white/10 transition-shadow duration-300"
       style={{
-        top: `calc(4rem + ${index * 2}rem)`,
-        backgroundColor: `rgba(74, 156, 85, ${1 - index * 0.03})`, 
+        top: `calc(5rem + ${index * 2.5}rem)`,
+        backgroundColor: baseGreen,
         color: 'white',
+        opacity: style.opacity,
+        transform: style.transform,
+        willChange: 'transform, opacity',
       }}
     >
       {/* Header */}
-      <div className="flex justify-between items-center mb-8 border-b border-white/20 pb-6">
-        <h2 className="text-4xl md:text-5xl font-semibold tracking-tight">{service.title}</h2>
-        <span className="text-4xl md:text-5xl font-semibold">{service.id}</span>
+      <div className="flex justify-between items-center mb-6 border-b border-white/20 pb-4">
+        <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">{service.title}</h2>
+        <span className="text-3xl md:text-4xl font-light opacity-80">{service.id}</span>
       </div>
 
-      {/* Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div className="space-y-8">
-          {/* Subheading */}
-          <div className="flex items-center gap-3 text-2xl font-medium">
-            <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v18m9-9H3m14.121-6.364l-12.728 12.728m0-12.728l12.728 12.728" />
-            </svg>
-            What’s Included?
+      {/* Content Layout */}
+      <div className="relative flex flex-col lg:flex-row items-stretch justify-between">
+        
+        {/* Left Text Column */}
+        <div className="w-full lg:w-[56%] flex flex-col justify-between space-y-6">
+          <div className="space-y-4">
+            {/* Subheading */}
+            <div className="flex items-center gap-2 text-xl font-medium">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v18m9-9H3m14.121-6.364l-12.728 12.728m0-12.728l12.728 12.728" />
+              </svg>
+              What’s Included?
+            </div>
+            
+            <p className="text-[15px] md:text-[16px] text-white/90 leading-relaxed pr-2">
+              {service.description}
+            </p>
+            
+            {/* Checklist */}
+            <ul className="space-y-3 pt-2">
+              {service.features.map((feature, i) => (
+                <li key={i} className="flex items-start gap-2.5 text-[15px] text-white/95">
+                  <svg className="w-5 h-5 mt-0.5 shrink-0 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-          
-          <p className="text-lg text-white/90 leading-relaxed pr-4">
-            {service.description}
-          </p>
-          
-          {/* Checklist */}
-          <ul className="space-y-4">
-            {service.features.map((feature, i) => (
-              <li key={i} className="flex items-start gap-3 text-lg text-white/95">
-                <svg className="w-6 h-6 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-                <span>{feature}</span>
-              </li>
-            ))}
-          </ul>
 
           {/* Price & Action Button */}
-          <div className="pt-8 border-t border-white/20 flex items-center gap-4">
-            <span className="text-6xl font-bold tracking-tight">{service.price}</span>
-            <span className="text-xl text-white/90 mt-2">/per hour</span>
+          <div className="pt-6 border-t border-white/20 flex items-center gap-3">
+            <span className="text-4xl md:text-5xl font-bold tracking-tight">{service.price}</span>
+            <span className="text-lg text-white/90">/per hour</span>
             
             <button 
-              className="ml-auto w-14 h-14 bg-[#f2871b] rounded-full flex items-center justify-center hover:bg-[#d97715] transition-transform hover:scale-105"
+              className="ml-4 w-12 h-12 bg-[#f2871b] rounded-full flex items-center justify-center hover:bg-[#d97715] transition-all hover:scale-105 shadow-md"
               aria-label="Book service"
             >
-              <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
               </svg>
             </button>
           </div>
         </div>
 
-        {/* Image Column */}
-        <div className="relative w-full h-full min-h-[300px] lg:min-h-[400px] flex items-center justify-center">
+        {/* Right Image Column - Positioned absolutely at bottom-right on desktop to sit flush and reduce height */}
+        <div className="w-full lg:absolute lg:right-0 lg:bottom-[-48px] lg:h-[110%] lg:w-[40%] mt-6 lg:mt-0 flex items-end justify-center lg:justify-end pointer-events-none">
           <img
             src={service.image}
             alt={service.title}
-            className="w-full h-auto object-contain max-h-[450px]"
+            className="w-auto h-56 sm:h-64 lg:h-[105%] max-h-[380px] object-contain object-bottom align-bottom"
             loading="lazy"
             decoding="async"
           />
-        </div>
       </div>
     </div>
+  </div>
   );
 }
 
-// 2. The main Parent Container mapping through the data
 export default function CleaningServicesStack() {
   return (
-    <div className="max-w-6xl mx-auto py-24 px-4 space-y-16 pb-[60vh]">
-      {services.map((service, index) => (
-        <StickyServiceCard 
-          key={service.id} 
-          service={service} 
-          index={index} 
-        />
-      ))}
+    <div className="max-w-7xl mx-auto py-24 px-6 md:px-8 space-y-16 pb-[40vh]">
+      
+      {/* Header Section from Reference Image */}
+      <div className="text-center max-w-3xl mx-auto mb-16 space-y-6">
+        <h2 className="text-4xl sm:text-5xl md:text-[3.25rem] font-bold text-zinc-900 tracking-tight leading-none">
+          Popular Services by Qleen
+        </h2>
+        
+        {/* Bullet Points with Orange Checkboxes */}
+        <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-3 pt-2 text-[15px] sm:text-[16px] font-semibold text-zinc-800">
+          <div className="flex items-center gap-2">
+            <span className="w-5 h-5 bg-[#f2871b] rounded-full flex items-center justify-center shrink-0">
+              <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </span>
+            <span>Background checked cleaners</span>
+          </div>
+          
+          <div className="flex items-center gap-2">
+            <span className="w-5 h-5 bg-[#f2871b] rounded-full flex items-center justify-center shrink-0">
+              <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </span>
+            <span>Insurance coverage up to $1M</span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="w-5 h-5 bg-[#f2871b] rounded-full flex items-center justify-center shrink-0">
+              <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </span>
+            <span>No Contracts or Commitments</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Cards Stack Container */}
+      <div className="space-y-12">
+        {services.map((service, index) => (
+          <StickyServiceCard 
+            key={service.id} 
+            service={service} 
+            index={index} 
+          />
+        ))}
+      </div>
     </div>
   );
 }

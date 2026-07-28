@@ -89,12 +89,13 @@ export function StickyServiceCard({ service, index }) {
     };
   }, [index]);
 
-  // Use solid rgb colors to prevent stacked cards from showing through
-  const alpha = 1 - index * 0.07;
-  const r = Math.round(75 * alpha + 255 * (1 - alpha));
-  const g = Math.round(162 * alpha + 255 * (1 - alpha));
-  const b = Math.round(100 * alpha + 255 * (1 - alpha));
-  const baseGreen = `rgb(${r}, ${g}, ${b})`;
+  // Deeper solid green shades per card index to keep them rich and green
+  const greenShades = [
+    'rgb(75, 162, 100)', // Card 1
+    'rgb(61, 140, 84)',  // Card 2
+    'rgb(48, 117, 69)'   // Card 3
+  ];
+  const baseGreen = greenShades[index] || 'rgb(75, 162, 100)';
 
   return (
     <div
@@ -163,15 +164,24 @@ export function StickyServiceCard({ service, index }) {
         </div>
 
         {/* Right Image Column - Positioned absolutely at bottom-right on desktop to sit flush and reduce height */}
-        <div className="w-full lg:absolute lg:right-0 lg:bottom-[-48px] lg:h-[110%] lg:w-[40%] mt-6 lg:mt-0 flex items-end justify-center lg:justify-end pointer-events-none">
+        <div className="w-full lg:absolute lg:right-0 lg:bottom-[-48px] lg:h-[110%] lg:w-[40%] mt-6 lg:mt-0 flex items-end justify-center lg:justify-end pointer-events-none relative">
+          {/* Floating Bubble Decoration */}
+          <img
+            src="https://qleen.bold-themes.com/demo-01/wp-content/uploads/sites/2/2025/07/floating_image_04.png"
+            alt="Bubble decoration"
+            className="absolute top-1/4 left-1/4 w-32 md:w-40 h-auto opacity-40 z-0 animate-[pulse_3s_infinite]"
+            style={{
+              transform: 'translate(-50%, -50%)',
+            }}
+          />
           <img
             src={service.image}
             alt={service.title}
-            className="w-auto h-56 sm:h-64 lg:h-[105%] max-h-[380px] object-contain object-bottom align-bottom"
+            className="w-auto h-56 sm:h-64 lg:h-[105%] max-h-[380px] object-contain object-bottom align-bottom z-10 relative"
             loading="lazy"
             decoding="async"
           />
-      </div>
+        </div>
     </div>
   </div>
   );

@@ -55,7 +55,7 @@ export default function HowItWorks() {
               {/* Double Ringed Green Icon Container */}
               <div className="relative flex-shrink-0">
                 <div className="absolute inset-0 border border-green-600/30 rounded-full scale-125"></div>
-                <div className="w-14 h-14 bg-[#4BA264] rounded-full flex items-center justify-center shadow-sm">
+                <div className="w-20 h-20 bg-[#43934a] rounded-full flex items-center justify-center shadow-sm">
                   {step.icon}
                 </div>
               </div>

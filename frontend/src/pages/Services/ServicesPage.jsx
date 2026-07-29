@@ -3,11 +3,7 @@ import {
   ArrowRight,
   X,
   Send,
-  CheckCircle2,
-  Phone,
-  ShieldCheck,
-  Calendar,
-  Sparkles
+  CheckCircle2
 } from 'lucide-react';
 import CleaningServicesStack from '../../Components/Plans';
 import HowItWorks from '../../Components/Howworks';
@@ -55,14 +51,14 @@ export default function ServicesPage({ setCurrentPage }) {
   };
 
   return (
-    <div className="w-full bg-[#FAF8F5] min-h-screen text-zinc-900 font-sans overflow-x-hidden">
+    <div className="w-full bg-[#FAF8F5] min-h-screen text-zinc-900 font-sans">
 
       {/* =========================================================================
-          SECTION 1: HERO IMAGE SECTION
+          1. FIRST SECTION: HERO IMAGE SECTION
           - Image: hero_services.jpg
-          - Subtitle: Services (cursive Caveat font)
-          - Main title: What Can We Clean For You Today?
-          - Interactive Dot Pin Callout: Standard clean from $29
+          - Subheadline: Services (Caveat font)
+          - Main Headline: What Can We Clean For You Today?
+          - Interactive Callout Pin: Standard clean from $29
          ========================================================================= */}
       <section className="relative w-full min-h-[580px] sm:min-h-[640px] lg:min-h-[700px] h-[80vh] flex items-center justify-start overflow-hidden pt-28 sm:pt-36 lg:pt-40 pb-28 sm:pb-36 px-6 sm:px-12 lg:px-20 z-10 mt-[70px]">
         {/* Hero Background Image */}
@@ -106,20 +102,13 @@ export default function ServicesPage({ setCurrentPage }) {
                 <span>Request Service</span>
                 <ArrowRight className="w-5 h-5" />
               </button>
-
-              <a
-                href="#plans-section"
-                className="bg-white/15 hover:bg-white/25 text-white backdrop-blur-md border border-white/30 px-7 py-4 rounded-full font-semibold text-base transition duration-300"
-              >
-                View Plans
-              </a>
             </div>
 
           </div>
         </div>
 
         {/* =========================================================================
-            INTERACTIVE CALLOUT DOT PIN / TOOLTIP (Matching Screenshot & HTML)
+            INTERACTIVE CALLOUT DOT PIN / TOOLTIP
             `Standard clean from $29`
            ========================================================================= */}
         <div className="absolute right-[10%] sm:right-[16%] bottom-[20%] sm:bottom-[26%] z-30 flex flex-col items-center group">
@@ -173,49 +162,22 @@ export default function ServicesPage({ setCurrentPage }) {
       </section>
 
       {/* =========================================================================
-          SECTION 2: PLANS SECTION (Imported from Component)
+          2. SECOND SECTION: DIRECT COMPONENT IMPORT OF PLANS (CleaningServicesStack)
          ========================================================================= */}
-      <section id="plans-section" className="relative bg-[#FAF8F5] pt-16 pb-12 px-4 sm:px-8 lg:px-16 rounded-t-[3.5rem] sm:rounded-t-[5.5rem] -mt-20 sm:-mt-28 z-20 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <CleaningServicesStack />
-        </div>
-      </section>
+      <CleaningServicesStack />
 
       {/* =========================================================================
-          SECTION 3: HOW IT WORKS SECTION (Imported from Component)
+          3. THIRD SECTION: DIRECT COMPONENT IMPORT OF HOW IT WORKS
          ========================================================================= */}
-      <section className="relative bg-[#FAF8F5] py-12 px-4 sm:px-8 lg:px-16 z-20">
-        <div className="max-w-7xl mx-auto">
-          <HowItWorks />
-        </div>
-      </section>
+      <HowItWorks />
 
       {/* =========================================================================
-          ADDITIONAL FEATURED SECTIONS: CARDS, SERVICE PRICE LIST, FAQ & TESTIMONIALS
+          4. DIRECT COMPONENT IMPORTS OF OTHER FEATURE SECTIONS
          ========================================================================= */}
-      <section className="relative bg-[#FAF8F5] py-12 px-4 sm:px-8 lg:px-16 z-20">
-        <div className="max-w-7xl mx-auto">
-          <Cards />
-        </div>
-      </section>
-
-      <section className="relative bg-[#FAF8F5] py-12 px-4 sm:px-8 lg:px-16 z-20">
-        <div className="max-w-7xl mx-auto">
-          <ServicePriceList />
-        </div>
-      </section>
-
-      <section className="relative bg-[#FAF8F5] py-12 px-4 sm:px-8 lg:px-16 z-20">
-        <div className="max-w-7xl mx-auto">
-          <FAQSection />
-        </div>
-      </section>
-
-      <section className="relative bg-[#FAF8F5] py-12 px-4 sm:px-8 lg:px-16 z-20">
-        <div className="max-w-7xl mx-auto">
-          <TestimonialsSection />
-        </div>
-      </section>
+      <Cards />
+      <ServicePriceList />
+      <FAQSection />
+      <TestimonialsSection />
 
       {/* =========================================================================
           BOOKING REQUEST MODAL

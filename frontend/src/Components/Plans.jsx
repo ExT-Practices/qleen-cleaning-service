@@ -44,8 +44,8 @@ const services = [
 export function StickyServiceCard({ service, index }) {
   const containerRef = useRef(null);
   const [style, setStyle] = useState({
-    opacity: 0,
-    transform: 'scale(0.9) translateY(30px)',
+    opacity: 1,
+    transform: 'scale(1) translateY(0px)',
   });
 
   useEffect(() => {
@@ -56,16 +56,16 @@ export function StickyServiceCard({ service, index }) {
       const rect = containerRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       
-      // Calculate scroll progress (0 when entering bottom of screen, 1 when 25% from top/centered)
+      // Calculate scroll progress
       const start = windowHeight;
-      const end = windowHeight * 0.3 + (index * 30);
+      const end = windowHeight * 0.2 + (index * 25);
       
       let progress = (start - rect.top) / (start - end);
-      progress = Math.max(0, Math.min(1, progress));
+      progress = Math.max(0.4, Math.min(1, progress));
       
       setStyle({
         opacity: progress,
-        transform: `scale(${0.9 + progress * 0.1}) translateY(${(1 - progress) * 30}px)`,
+        transform: `scale(${0.94 + (progress - 0.4) * 0.1}) translateY(${(1 - progress) * 15}px)`,
       });
       ticking = false;
     };
@@ -100,9 +100,9 @@ export function StickyServiceCard({ service, index }) {
   return (
     <div
       ref={containerRef}
-      className="sticky shadow-2xl rounded-[2.5rem] p-8 md:p-10 lg:p-12 overflow-hidden border border-white/10 transition-shadow duration-300"
+      className="sticky shadow-2xl rounded-[2.5rem] p-8 md:p-10 lg:p-12 overflow-hidden border border-white/10 transition-all duration-300"
       style={{
-        top: `calc(5rem + ${index * 2.5}rem)`,
+        top: `calc(6rem + ${index * 2.25}rem)`,
         backgroundColor: baseGreen,
         color: 'white',
         opacity: style.opacity,
@@ -189,7 +189,7 @@ export function StickyServiceCard({ service, index }) {
 
 export default function CleaningServicesStack() {
   return (
-    <div className="max-w-7xl mx-auto py-24 px-6 md:px-8 space-y-16 pb-[40vh]">
+    <div className="max-w-7xl mx-auto py-12 px-6 md:px-8 space-y-12 pb-16">
       
       {/* Header Section from Reference Image */}
       <div className="text-center max-w-3xl mx-auto mb-16 space-y-6">

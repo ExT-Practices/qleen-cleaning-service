@@ -89,8 +89,8 @@ export default function Navbar({ currentPage = "home", setCurrentPage }) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeMobileMenu, setActiveMobileMenu] = useState(null);
 
-  // Force solid white navbar on About page or when scrolled
-  const isWhiteHeader = currentPage === "about" || isScrolled;
+  // Force solid white navbar on About page, Services page, or when scrolled
+  const isWhiteHeader = currentPage === "about" || currentPage === "services" || isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -109,6 +109,7 @@ export default function Navbar({ currentPage = "home", setCurrentPage }) {
       e.preventDefault();
       setCurrentPage(pageKey);
       window.location.hash = href.replace('#', '');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -126,8 +127,9 @@ export default function Navbar({ currentPage = "home", setCurrentPage }) {
           onClick={() => {
             if (setCurrentPage) setCurrentPage("home");
             window.location.hash = "home";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
-          className="transition transform hover:scale-105 duration-300 focus:outline-none"
+          className="transition transform hover:scale-105 duration-300 focus:outline-none cursor-pointer"
         >
           <img
             src={
@@ -147,6 +149,7 @@ export default function Navbar({ currentPage = "home", setCurrentPage }) {
             const isMega = item.isMegaMenu;
             const isActive =
               (currentPage === "about" && item.name === "About") ||
+              (currentPage === "services" && item.name === "Services") ||
               (currentPage === "home" && item.name === "Home");
 
             return (
@@ -178,6 +181,8 @@ export default function Navbar({ currentPage = "home", setCurrentPage }) {
                           onClick={(e) => {
                             if (sub.name.includes("About")) {
                               handleNavClick(e, "about", "#about-page");
+                            } else if (sub.name.includes("Service") || sub.name.includes("Prices") || sub.name.includes("Quote") || sub.name.includes("Services")) {
+                              handleNavClick(e, "services", "#services");
                             } else if (sub.name.includes("Home")) {
                               handleNavClick(e, "home", "#home");
                             }

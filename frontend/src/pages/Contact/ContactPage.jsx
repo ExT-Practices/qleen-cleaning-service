@@ -201,125 +201,134 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
 
           {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto space-y-2">
+          <div className="text-center max-w-3xl mx-auto space-y-3">
             <span className="text-[#ff7f00] font-['Caveat'] text-2xl sm:text-3xl font-normal block italic">
               Get in touch
             </span>
             <h2 className="text-zinc-900 text-3xl sm:text-5xl font-extrabold tracking-tight">
               Have questions or ready to book a cleaning?
             </h2>
-            <p className="text-zinc-600 text-base sm:text-lg pt-2 leading-relaxed">
+            <p className="text-zinc-500 text-base sm:text-lg leading-relaxed pt-1">
               Whether you need a one-time deep clean or recurring service, our friendly team is just a message away.
             </p>
           </div>
 
-          {/* 3 Contact Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+          {/* 3 Contact Cards Grid - Explicit mobile fallback col-span-12 and desktop column spans */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
 
-            {/* Card 1: Customer Service */}
-            <div className="bg-white rounded-[2.5rem] p-8 sm:p-10 shadow-sm border border-zinc-100 flex flex-col justify-between text-left space-y-6">
-              <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-[#43934a]/10 flex items-center justify-center text-[#43934a]">
-                  <Headphones className="w-6 h-6" />
+            {/* Card 1: Customer Service (25% Width) */}
+            <div className="col-span-12 lg:col-span-3 bg-white rounded-[2.5rem] p-8 sm:p-10 shadow-sm border border-zinc-100/80 flex flex-col justify-between text-left space-y-8 min-h-[380px]">
+              <div className="space-y-5">
+                <div className="text-[#43934a]">
+                  <Headphones className="w-9 h-9 text-[#43934a]" strokeWidth={1.5} />
                 </div>
-                <h3 className="text-zinc-900 text-xl font-bold tracking-tight">
+                <h3 className="text-zinc-900 text-2xl font-bold tracking-tight">
                   Customer Service
                 </h3>
-                <p className="text-zinc-600 text-sm leading-relaxed">
+                <p className="text-zinc-500 text-sm leading-relaxed">
                   Call or text us anytime during business hours
                 </p>
               </div>
 
-              <div className="space-y-1 border-t border-zinc-100 pt-4">
-                <div className="text-xs font-bold text-zinc-900 uppercase tracking-wide">
+              <div className="space-y-1 pt-4">
+                <div className="text-sm font-bold text-zinc-800">
                   Monday to Saturday:
                 </div>
-                <div className="text-sm font-semibold text-zinc-700">
+                <div className="text-sm font-bold text-zinc-800">
                   8:00 AM – 6:00 PM
                 </div>
-                <a href="tel:8442429464" className="text-sm font-bold text-zinc-900 hover:text-[#ff7f00] transition block pt-1">
+                <div className="text-sm text-zinc-500 pt-0.5">
                   (844) 242-9464
-                </a>
+                </div>
               </div>
             </div>
 
-            {/* Card 2: Find Us Here */}
-            <div className="bg-white rounded-[2.5rem] p-8 sm:p-10 shadow-sm border border-zinc-100 flex flex-col justify-between text-left space-y-6">
-              <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-[#43934a]/10 flex items-center justify-center text-[#43934a]">
-                  <MapPin className="w-6 h-6" />
+            {/* Card 2: Find Us Here (25% Width) */}
+            <div className="col-span-12 lg:col-span-3 bg-white rounded-[2.5rem] p-8 sm:p-10 shadow-sm border border-zinc-100/80 flex flex-col justify-between text-left space-y-8 min-h-[380px]">
+              <div className="space-y-5">
+                <div className="text-[#43934a]">
+                  <MapPin className="w-9 h-9 text-[#43934a]" strokeWidth={1.5} />
                 </div>
-                <h3 className="text-zinc-900 text-xl font-bold tracking-tight">
+                <h3 className="text-zinc-900 text-2xl font-bold tracking-tight">
                   Find Us Here
                 </h3>
-                <p className="text-zinc-600 text-sm leading-relaxed">
-                  Qleen Cleaning Services<br />
-                  1234 Myrtle Avenue, Suite 2B<br />
-                  Brooklyn, NY 11221
-                </p>
+                <div className="text-zinc-500 text-sm leading-relaxed space-y-0.5">
+                  <p>Qleen Cleaning Services</p>
+                  <p>1234 Myrtle Avenue, Suite 2B</p>
+                  <p>Brooklyn, NY 11221</p>
+                </div>
               </div>
 
+              {/* View Map Button with Light Orange Outer Ring */}
               <div className="pt-2">
                 <a
                   href="#map"
-                  className="inline-block bg-[#ff7f00] hover:bg-[#e06f00] text-white text-xs font-bold px-6 py-2.5 rounded-full shadow-sm transition uppercase tracking-wider"
+                  className="inline-block bg-[#ff7f00] hover:bg-[#e06f00] text-white text-sm font-semibold px-6 py-2.5 rounded-full transition border-[6px] border-[#ff7f00]/25 shadow-sm"
                 >
                   View Map
                 </a>
               </div>
             </div>
 
-            {/* Card 3: Contact online / Green Card with Glove */}
-            <div className="bg-[#43934a] rounded-[2.5rem] p-8 sm:p-10 shadow-lg text-white relative overflow-hidden flex flex-col justify-between min-h-[300px]">
+            {/* Card 3: Contact online / Green Card with Glove (50% Width - Wider) */}
+            <div className="col-span-12 lg:col-span-6 bg-[#43934a] rounded-[2.5rem] p-8 sm:p-10 shadow-lg text-white relative overflow-hidden flex flex-col justify-between min-h-[380px]">
 
               {/* Content Left */}
-              <div className="relative z-10 text-left space-y-4 max-w-[240px]">
-                <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-white backdrop-blur-xs">
-                  <RotateCcw className="w-5 h-5" />
+              <div className="relative z-10 text-left space-y-5 max-w-[280px]">
+                <div className="text-white">
+                  <RotateCcw className="w-7 h-7 text-white" strokeWidth={1.75} />
                 </div>
-                <h3 className="text-white text-xl sm:text-2xl font-bold tracking-tight leading-snug">
-                  Contact us online or via social media
+                <h3 className="text-white text-2xl lg:text-3xl font-extrabold tracking-tight leading-snug">
+                  Contact us online or<br />via social media
                 </h3>
-                <a href="mailto:office@qleentheme.com" className="text-emerald-100 text-sm font-semibold hover:underline block pt-1">
+                <a href="mailto:office@qleentheme.com" className="text-white/90 text-sm font-semibold hover:underline block pt-1">
                   office@qleentheme.com
                 </a>
               </div>
 
-              {/* Social Icons Bottom Left */}
+              {/* Social Icons Bottom Left (Normally outline, turns solid white background on hover) */}
               <div className="relative z-10 flex items-center gap-3 pt-6">
-                <a href="#" className="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition" aria-label="Facebook">
+                <a href="#" className="w-11 h-11 rounded-full border border-white/60 bg-transparent hover:bg-white hover:text-[#ff7f00] hover:border-white flex items-center justify-center text-white transition shadow-sm" aria-label="Facebook">
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                   </svg>
                 </a>
-                <a href="#" className="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition" aria-label="Instagram">
+                <a href="#" className="w-11 h-11 rounded-full border border-white/60 bg-transparent hover:bg-white hover:text-[#ff7f00] hover:border-white flex items-center justify-center text-white transition shadow-sm" aria-label="Instagram">
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                   </svg>
                 </a>
-                <a href="#" className="w-9 h-9 rounded-full bg-[#ff7f00] hover:bg-[#e06f00] flex items-center justify-center text-white font-extrabold text-sm transition" aria-label="X">
-                  X
+                <a href="#" className="w-11 h-11 rounded-full border border-white/60 bg-transparent hover:bg-white hover:text-[#ff7f00] hover:border-white flex items-center justify-center text-white transition shadow-sm" aria-label="X">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
                 </a>
-                <a href="#" className="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition" aria-label="LinkedIn">
+                <a href="#" className="w-11 h-11 rounded-full border border-white/60 bg-transparent hover:bg-white hover:text-[#ff7f00] hover:border-white flex items-center justify-center text-white transition shadow-sm" aria-label="LinkedIn">
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                     <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                   </svg>
                 </a>
               </div>
 
-              {/* Green Glove Image Right */}
+              {/* Orange Glove Image Right with Sparkle Rays */}
               <div className="absolute right-0 bottom-0 top-0 w-1/2 flex items-end justify-end pointer-events-none z-0">
+                {/* White Sparkle Rays above fingers */}
+                <div className="absolute top-12 sm:top-14 right-16 sm:right-20 flex items-center gap-1.5 opacity-95">
+                  <span className="w-1 h-4 bg-white rounded-full transform -rotate-45"></span>
+                  <span className="w-1 h-5 bg-white rounded-full -translate-y-1"></span>
+                  <span className="w-1 h-4 bg-white rounded-full transform rotate-45"></span>
+                </div>
+
                 <img
                   src="https://qleen.bold-themes.com/demo-01/wp-content/uploads/sites/2/2025/07/green_glove.png"
-                  alt="Green glove"
-                  className="max-h-[260px] w-auto object-contain object-bottom transform translate-y-2 pr-2"
+                  alt="Orange gloved hand snapping fingers"
+                  className="max-h-[320px] lg:max-h-[360px] w-auto object-contain object-bottom transform translate-y-2 pr-2"
                 />
               </div>
 
             </div>
 
           </div>
-
         </div>
       </section>
 

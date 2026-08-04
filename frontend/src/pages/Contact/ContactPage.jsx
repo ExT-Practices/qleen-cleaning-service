@@ -378,29 +378,28 @@ export default function ContactPage() {
 
         </div>
       </section>
-
+      
       {/* 4. MORE LOCATIONS BY QLEEN GREEN TILES SECTION */}
       <section className="relative px-4 sm:px-8 lg:px-12 py-12 bg-[#FAF8F5]">
         <div className="relative max-w-7xl mx-auto rounded-[3.5rem] bg-[#43934a] py-16 sm:py-20 px-6 sm:px-12 text-white shadow-2xl overflow-hidden">
 
-          {/* Tiled Grid Background overlay effect */}
-          <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] opacity-15 pointer-events-none" />
+          {/* Tiled Grid Background overlay effect (Square Tiles) */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:52px_52px] pointer-events-none" />
 
           {/* Floating Water Bubble Overlays */}
           <img
             src="https://qleen.bold-themes.com/demo-01/wp-content/uploads/sites/2/2025/07/floating_image_04.png"
             alt="Bubble"
-            className="absolute top-8 left-8 w-24 h-auto opacity-75 pointer-events-none animate-bounce"
-            style={{ animationDuration: '6s' }}
+            className="absolute top-12 left-6 w-24 h-auto opacity-75 pointer-events-none"
           />
           <img
             src="https://qleen.bold-themes.com/demo-01/wp-content/uploads/sites/2/2025/07/floating_image_05.png"
             alt="Bubble"
-            className="absolute bottom-6 right-6 w-20 h-auto opacity-70 pointer-events-none"
+            className="absolute bottom-10 right-6 w-20 h-auto opacity-70 pointer-events-none"
           />
 
-          <div className="relative z-10 space-y-10 text-center">
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+          <div className="relative z-10 space-y-12 text-center">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
               More Locations by Qleen
             </h2>
 
@@ -428,25 +427,95 @@ export default function ContactPage() {
                   phone: "(201) 555-0563"
                 }
               ].map((loc, idx) => (
-                <div key={idx} className="bg-white text-zinc-900 rounded-[2rem] p-6 shadow-md border border-white/90 space-y-3 flex flex-col justify-between">
-                  <div className="space-y-2">
-                    <div className="w-8 h-8 rounded-full bg-[#ff7f00]/10 flex items-center justify-center text-[#ff7f00]">
-                      <MapPin className="w-4 h-4" />
+                <div key={idx} className="bg-white text-zinc-900 rounded-[2.2rem] p-8 shadow-md border border-white/80 flex flex-col justify-between min-h-[300px]">
+                  <div className="space-y-4">
+                    <div className="text-[#ff7f00]">
+                      <MapPin className="w-7 h-7 text-[#ff7f00]" strokeWidth={1.5} />
                     </div>
-                    <h3 className="text-lg font-bold text-zinc-900 tracking-tight">
+                    <h3 className="text-zinc-900 text-xl font-bold tracking-tight">
                       {loc.city}
                     </h3>
-                    <p className="text-zinc-500 text-xs leading-relaxed">
+                    <p className="text-zinc-500 text-sm leading-relaxed">
                       {loc.address}
                     </p>
                   </div>
-                  <div className="flex items-center gap-2 text-xs font-bold text-[#43934a] pt-2 border-t border-zinc-100">
-                    <Headphones className="w-3.5 h-3.5" />
+                  <div className="flex items-center gap-2.5 text-sm font-bold text-zinc-800 pt-4">
+                    <Headphones className="w-5 h-5 text-[#43934a]" strokeWidth={1.75} />
                     <span>{loc.phone}</span>
                   </div>
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+      {/* 5. CALL TO ACTION BANNER SECTION (WHAT CAN WE CLEAN FOR YOU TODAY) */}
+      <section className="relative px-4 sm:px-8 lg:px-12 py-16 bg-[#FAF8F5]">
+        <div className="relative max-w-7xl mx-auto min-h-[460px]">
+          
+          {/* Card Background Container (Clips background but allows overflow for content layered outside) */}
+          <div className="absolute inset-0 rounded-[3.5rem] bg-[#ff7f00] shadow-2xl overflow-hidden flex flex-col lg:flex-row items-stretch z-0">
+            {/* Left Orange Area (60% Width) */}
+            <div className="w-full lg:w-[60%] bg-[#ff7f00]" />
+            
+            {/* Right Kitchen BG Area (40% Width) */}
+            <div 
+              className="w-full lg:w-[40%] bg-cover bg-center relative" 
+              style={{ backgroundImage: `url('https://qleen.bold-themes.com/demo-01/wp-content/uploads/sites/2/2025/07/image_03.jpg')` }}
+            >
+              <div className="absolute inset-0 bg-black/5" />
+            </div>
+          </div>
+
+          {/* Foreground Content Container (Allows items to overlap out of the container) */}
+          <div className="relative z-10 flex flex-col lg:flex-row items-stretch min-h-[460px]">
+            
+            {/* Left Column: Text & Call Widget (60% Width) */}
+            <div className="w-full lg:w-[60%] p-8 sm:p-12 lg:p-16 flex flex-col justify-center text-left">
+              <h2 className="text-3xl sm:text-5xl font-extrabold text-white leading-tight tracking-tight max-w-lg">
+                What Can We Clean For You Today?
+              </h2>
+              <h3 className="text-lg sm:text-xl font-bold text-white/90 mt-3">
+                Book Your Clean Now
+              </h3>
+
+              {/* Call Button Widget with Ring */}
+              <div className="mt-8 flex justify-start">
+                <div className="inline-flex items-center gap-3 p-1.5 bg-white/20 rounded-full border border-white/10 backdrop-blur-xs">
+                  <span className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#ff7f00] shadow-md">
+                    <Phone className="w-5 h-5 fill-current" />
+                  </span>
+                  <a
+                    href="tel:8442429464"
+                    className="text-white font-bold text-sm sm:text-base pr-5 hover:underline"
+                  >
+                    Call us: (844) 242-9464
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Overlay Image & Award (40% Width) */}
+            <div className="w-full lg:w-[40%] relative min-h-[320px] lg:min-h-auto">
+              {/* Award Badge Logo overlay at Top Right */}
+              <div className="absolute top-6 right-6 sm:top-8 sm:right-8 z-20">
+                <img
+                  src="https://qleen.bold-themes.com/demo-01/wp-content/uploads/sites/2/2025/07/award_logo.png"
+                  alt="2024 Super Service Award"
+                  className="w-20 sm:w-28 h-auto drop-shadow-md"
+                />
+              </div>
+
+              {/* Cleaner Woman Layered Image (Anchored at the bottom edge, scaling upwards to overflow top boundary) */}
+              <div className="absolute bottom-0 left-1/2 lg:left-0 -translate-x-1/2 lg:-translate-x-[20%] xl:-translate-x-[24%] w-[280px] sm:w-[360px] lg:w-[420px] xl:w-[460px] z-30 flex justify-center items-end">
+                <img
+                  src="https://qleen.bold-themes.com/demo-01/wp-content/uploads/sites/2/2025/07/team_01.png"
+                  alt="Professional Qleen Cleaner"
+                  className="w-full h-auto object-contain object-bottom origin-bottom transform scale-110 drop-shadow-2xl translate-y-0"
+                />
+              </div>
+            </div>
+
           </div>
 
         </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ShieldCheck, Calendar, Leaf, HeartHandshake, CheckCircle2, Phone, ArrowRight } from 'lucide-react';
 import TestimonialsSection from '../../Components/TestimonialsSection';
 import FAQSection from '../../Components/FAQSection';
+import HonestSimpleQleen from '../../Components/HonestSimpleQleen';
 
 // Animated Counter component that counts up from 0 on page load/refresh
 function AnimatedCounter({ targetValue, suffix = '', prefix = '', duration = 2200 }) {
@@ -146,8 +147,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 2. Main Content Container (Curved Section Overlapping Bottom of Hero) */}
-      <section className="relative bg-[#FAF8F5] py-16 sm:py-24 px-6 sm:px-12 lg:px-20 rounded-t-[3.5rem] sm:rounded-t-[5.5rem] -mt-20 sm:-mt-28 z-20 overflow-hidden">
+      {/* 2. Honest. Simple. Qleen. Section */}
+      <HonestSimpleQleen />
+
+      {/* 3. Main Content Container */}
+      <section className="relative bg-[#FAF8F5] py-16 sm:py-24 px-6 sm:px-12 lg:px-20 z-20 overflow-hidden">
         <div className="max-w-7xl mx-auto space-y-16 lg:space-y-24">
           
           {/* Section Headline & Intro Paragraph */}

@@ -11,6 +11,8 @@ import Cards from '../../Components/Cards';
 import ServicePriceList from '../../Components/Service-price-list';
 import FAQSection from '../../Components/FAQSection';
 import TestimonialsSection from '../../Components/TestimonialsSection';
+import ServicePackages from '../../Components/ServicePackages';
+import JoinTeam from '../../Components/JoinTeam';
 
 export default function ServicesPage({ setCurrentPage }) {
   // Interactive Dot Hotspot Tooltip state
@@ -76,7 +78,7 @@ export default function ServicesPage({ setCurrentPage }) {
         {/* Hero Content Box */}
         <div className="relative z-10 max-w-7xl mx-auto w-full">
           <div className="max-w-3xl text-left space-y-4">
-            
+
             {/* Cursive Handwritten Superheadline (White Caveat font) */}
             <span className="text-white text-3xl sm:text-4xl lg:text-5xl font-['Caveat'] tracking-wide font-normal block drop-shadow-md">
               Services
@@ -97,7 +99,7 @@ export default function ServicesPage({ setCurrentPage }) {
             <div className="flex flex-wrap items-center gap-4 pt-3">
               <button
                 onClick={() => handleOpenBooking('Custom Service Request')}
-                className="bg-[#ff7f00] hover:bg-[#e06f00] text-white px-8 py-4 rounded-full font-bold text-base shadow-xl hover:shadow-orange-500/40 transition-all duration-300 flex items-center gap-2 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+                className="bg-[#5200c9] hover:bg-[#4100a3] text-white px-8 py-4 rounded-full font-bold text-base shadow-xl hover:shadow-[#5200c9]/40 transition-all duration-300 flex items-center gap-2 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
               >
                 <span>Request Service</span>
                 <ArrowRight className="w-5 h-5" />
@@ -112,7 +114,7 @@ export default function ServicesPage({ setCurrentPage }) {
             `Standard clean from $29`
            ========================================================================= */}
         <div className="absolute right-[10%] sm:right-[16%] bottom-[20%] sm:bottom-[26%] z-30 flex flex-col items-center group">
-          
+
           {/* Pointer cursive label tag */}
           <div className="flex items-center gap-2 mb-2 transition transform group-hover:scale-105">
             <span className="font-['Caveat'] text-white text-2xl sm:text-3xl font-semibold tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)] px-3.5 py-1 bg-black/35 backdrop-blur-sm rounded-full border border-white/20">
@@ -120,7 +122,7 @@ export default function ServicesPage({ setCurrentPage }) {
             </span>
           </div>
 
-          {/* Glowing Orange Interactive Dot Pin */}
+          {/* Glowing Purple Interactive Dot Pin */}
           <button
             onClick={() => setShowTooltip(!showTooltip)}
             onMouseEnter={() => setShowTooltip(true)}
@@ -128,16 +130,16 @@ export default function ServicesPage({ setCurrentPage }) {
             title="Click to view Standard Clean offer"
           >
             {/* Pulsing outer ring */}
-            <span className="absolute inset-0 rounded-full bg-[#ff7f00] opacity-75 animate-ping" />
+            <span className="absolute inset-0 rounded-full bg-[#5200c9] opacity-75 animate-ping" />
             {/* Inner glowing dot */}
-            <span className="relative block w-5 h-5 rounded-full bg-[#ff7f00] border-2 border-white shadow-[0_0_15px_#ff7f00]" />
+            <span className="relative block w-5 h-5 rounded-full bg-[#5200c9] border-2 border-white shadow-[0_0_15px_#5200c9]" />
           </button>
 
           {/* Interactive Popover Tooltip */}
           {showTooltip && (
             <div className="absolute bottom-12 right-0 w-72 bg-white rounded-2xl p-5 shadow-2xl border border-zinc-100 z-50 text-left animate-fadeIn">
               <div className="flex items-center justify-between pb-2 border-b border-zinc-100">
-                <span className="text-[#ff7f00] font-bold text-xs uppercase tracking-wider">Special Offer</span>
+                <span className="text-[#5200c9] font-bold text-xs uppercase tracking-wider">Special Offer</span>
                 <span className="text-zinc-900 font-extrabold text-lg">$29</span>
               </div>
               <h4 className="text-zinc-900 font-bold text-base mt-2">Standard Home Clean</h4>
@@ -149,7 +151,7 @@ export default function ServicesPage({ setCurrentPage }) {
                   setShowTooltip(false);
                   handleOpenBooking('Standard Clean ($29)');
                 }}
-                className="w-full mt-3 bg-[#43934a] hover:bg-[#377b3d] text-white py-2 px-4 rounded-xl font-bold text-xs tracking-wide transition shadow-sm flex items-center justify-center gap-1.5 cursor-pointer"
+                className="w-full mt-3 bg-[#5200c9] hover:bg-[#4100a3] text-white py-2 px-4 rounded-xl font-bold text-xs tracking-wide transition shadow-sm flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <span>Book This Clean ($29)</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -162,22 +164,28 @@ export default function ServicesPage({ setCurrentPage }) {
       </section>
 
       {/* =========================================================================
-          2. SECOND SECTION: DIRECT COMPONENT IMPORT OF PLANS (CleaningServicesStack)
+          2. SERVICE PACKAGES SECTION
+         ========================================================================= */}
+      <ServicePackages onSelectPackage={handleOpenBooking} />
+
+      {/* =========================================================================
+          3. DIRECT COMPONENT IMPORT OF PLANS (CleaningServicesStack)
          ========================================================================= */}
       <CleaningServicesStack />
 
       {/* =========================================================================
-          3. THIRD SECTION: DIRECT COMPONENT IMPORT OF HOW IT WORKS
+          4. DIRECT COMPONENT IMPORT OF HOW IT WORKS
          ========================================================================= */}
       <HowItWorks />
 
       {/* =========================================================================
-          4. DIRECT COMPONENT IMPORTS OF OTHER FEATURE SECTIONS
+          5. DIRECT COMPONENT IMPORTS OF OTHER FEATURE SECTIONS
          ========================================================================= */}
       <Cards />
       <ServicePriceList />
       <FAQSection />
       <TestimonialsSection />
+      <JoinTeam />
 
       {/* =========================================================================
           BOOKING REQUEST MODAL
@@ -185,7 +193,7 @@ export default function ServicesPage({ setCurrentPage }) {
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
           <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-zinc-100 text-left">
-            
+
             {/* Close Button */}
             <button
               onClick={() => setIsModalOpen(false)}
@@ -310,6 +318,9 @@ export default function ServicesPage({ setCurrentPage }) {
                 </button>
               </form>
             )}
+
+
+
 
           </div>
         </div>

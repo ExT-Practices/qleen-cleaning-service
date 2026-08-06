@@ -29,7 +29,7 @@ const navItems = [
     pageKey: "services",
     subMenu: [
       { name: "Our Services", href: "#services", pageKey: "services" },
-      { name: "Single Service", href: "#services", pageKey: "services" },
+      { name: "Single Service", href: "#single-service", pageKey: "single-services" },
       { name: "Prices", href: "#prices" },
       { name: "Get Quote", href: "#quote" },
     ],

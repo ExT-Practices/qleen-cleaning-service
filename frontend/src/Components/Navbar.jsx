@@ -19,8 +19,8 @@ const navItems = [
       { name: "About Us", href: "#about-page", pageKey: "about" },
       { name: "Testimonials", href: "#testimonials-page", pageKey: "testimonials" },
       { name: "Contact", href: "#contact", pageKey: "contact" },
-      { name: "Error Page – 404", href: "#404" },
-      { name: "Under Construction", href: "#construction" },
+      { name: "Error Page – 404", href: "#404", pageKey: "404" },
+      { name: "Under Construction", href: "#construction", pageKey: "construction" },
     ],
   },
   {

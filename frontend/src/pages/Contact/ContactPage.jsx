@@ -188,7 +188,7 @@ export default function ContactPage() {
               <img
                 src="https://qleen.bold-themes.com/demo-01/wp-content/uploads/sites/2/2025/07/image_01_contact.png"
                 alt="Professional cleaner woman with mop"
-                className="max-h-[620px] lg:max-h-[740px] xl:max-h-[820px] w-auto object-contain object-bottom transform -translate-x-2 lg:-translate-x-4 xl:-translate-x-6 translate-y-4 drop-shadow-xl"
+                className="max-h-[680px] lg:max-h-[740px] xl:max-h-[820px] w-auto object-contain object-bottom transform -translate-x-2 lg:-translate-x-4 xl:-translate-x-6 translate-y-4 drop-shadow-xl"
               />
             </div>
 
@@ -378,7 +378,7 @@ export default function ContactPage() {
 
         </div>
       </section>
-      
+
       {/* 4. MORE LOCATIONS BY QLEEN GREEN TILES SECTION */}
       <section className="relative px-4 sm:px-8 lg:px-12 py-12 bg-[#FAF8F5]">
         <div className="relative max-w-7xl mx-auto rounded-[3.5rem] bg-[#43934a] py-16 sm:py-20 px-6 sm:px-12 text-white shadow-2xl overflow-hidden">
@@ -452,15 +452,15 @@ export default function ContactPage() {
       {/* 5. CALL TO ACTION BANNER SECTION (WHAT CAN WE CLEAN FOR YOU TODAY) */}
       <section className="relative px-4 sm:px-8 lg:px-12 py-16 bg-[#FAF8F5]">
         <div className="relative max-w-7xl mx-auto min-h-[460px]">
-          
+
           {/* Card Background Container (Clips background but allows overflow for content layered outside) */}
           <div className="absolute inset-0 rounded-[3.5rem] bg-[#ff7f00] shadow-2xl overflow-hidden flex flex-col lg:flex-row items-stretch z-0">
             {/* Left Orange Area (60% Width) */}
             <div className="w-full lg:w-[60%] bg-[#ff7f00]" />
-            
+
             {/* Right Kitchen BG Area (40% Width) */}
-            <div 
-              className="w-full lg:w-[40%] bg-cover bg-center relative" 
+            <div
+              className="w-full lg:w-[40%] bg-cover bg-center relative"
               style={{ backgroundImage: `url('https://qleen.bold-themes.com/demo-01/wp-content/uploads/sites/2/2025/07/image_03.jpg')` }}
             >
               <div className="absolute inset-0 bg-black/5" />
@@ -469,7 +469,7 @@ export default function ContactPage() {
 
           {/* Foreground Content Container (Allows items to overlap out of the container) */}
           <div className="relative z-10 flex flex-col lg:flex-row items-stretch min-h-[460px]">
-            
+
             {/* Left Column: Text & Call Widget (60% Width) */}
             <div className="w-full lg:w-[60%] p-8 sm:p-12 lg:p-16 flex flex-col justify-center text-left">
               <h2 className="text-3xl sm:text-5xl font-extrabold text-white leading-tight tracking-tight max-w-lg">
@@ -507,7 +507,7 @@ export default function ContactPage() {
               </div>
 
               {/* Cleaner Woman Layered Image (Anchored at the bottom edge, scaling upwards to overflow top boundary) */}
-              <div className="absolute bottom-0 left-1/2 lg:left-0 -translate-x-1/2 lg:-translate-x-[20%] xl:-translate-x-[24%] w-[280px] sm:w-[360px] lg:w-[420px] xl:w-[460px] z-30 flex justify-center items-end">
+              <div className="absolute bottom-0 left-1/2 lg:left-0 -translate-x-1/2 lg:-translate-x-[45%] xl:-translate-x-24%] w-[280px] sm:w-[360px] lg:w-[420px] xl:w-[460px] z-30 flex justify-center items-end">
                 <img
                   src="https://qleen.bold-themes.com/demo-01/wp-content/uploads/sites/2/2025/07/team_01.png"
                   alt="Professional Qleen Cleaner"

@@ -48,8 +48,8 @@ export default function QuickEstimate() {
   }, []);
 
   return (
-    <section className="w-full bg-[#FAF8F5] py-20 px-6 md:px-12">
-      <div className="max-w-7xl mx-auto bg-white rounded-[2.5rem] md:rounded-[3.5rem] p-8 md:p-14 shadow-lg border border-zinc-100/80 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+    <section className="w-full bg-[#FAF8F5] py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1400px] mx-auto bg-white rounded-[2.5rem] md:rounded-[3.5rem] p-8 md:p-14 shadow-lg border border-zinc-100/80 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         
         {/* Left Column: Form */}
         <div className="lg:col-span-5 space-y-7">
@@ -186,13 +186,13 @@ export default function QuickEstimate() {
         </div>
 
         {/* Right Column: Image and Overlaid Badge */}
-        <div className="lg:col-span-7 flex justify-center lg:justify-end">
-          <div className="relative w-full max-w-[500px]">
+        <div className="lg:col-span-7 flex justify-center lg:justify-end w-full">
+          <div className="relative w-full">
             {/* Showcase Image */}
             <img
-              src="https://qleen.bold-themes.com/demo-01/wp-content/uploads/sites/2/2025/07/home_02_image_01.jpg"
+              src="https://qleen.bold-themes.com/demo-01/wp-content/uploads/sites/2/2025/07/image_01.jpg"
               alt="Professional Cleaning Service"
-              className="w-full h-auto rounded-[2.5rem] object-cover shadow-md"
+              className="w-full h-auto rounded-[2.5rem] md:rounded-[3rem] object-cover shadow-md"
             />
 
             {/* Trusted Clients Badge overlay */}

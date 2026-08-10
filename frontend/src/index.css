@@ -21,6 +21,19 @@ body {
   animation: fadeIn 0.2s ease-out forwards;
 }
 
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
 .testimonial-track {
   transform: translateX(calc(-1 * var(--active-slide) * (85% + 24px) + var(--drag-offset, 0px)));
   transition: transform 0.5s ease-in-out;
@@ -35,4 +48,9 @@ body {
   .testimonial-track {
     transform: translateX(calc(-1 * var(--active-slide) * (38% + 24px) + var(--drag-offset, 0px)));
   }
+}
+
+/* Curved badge cutout effect for image container */
+.shape-curved-cutout {
+  mask: radial-gradient(circle 2rem at 100% 100%, #0000 98%, #000 100%) 100% 100% / 100% 100% no-repeat;
 }

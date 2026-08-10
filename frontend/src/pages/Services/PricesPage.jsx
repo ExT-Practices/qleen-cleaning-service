@@ -14,7 +14,7 @@ export default function PricesPage({ setCurrentPage }) {
   return (
     <div className="w-full bg-[#FAF8F5] min-h-screen text-zinc-900 font-sans">
       {/* ================= HERO HEADER SECTION ================= */}
-      <section className="relative w-full min-h-[480px] sm:min-h-[540px] lg:min-h-[580px] flex items-center justify-start overflow-hidden pt-28 sm:pt-36 lg:pt-40 pb-20 px-6 sm:px-12 lg:px-20 z-10 mt-[70px]">
+      <section className="relative w-full min-h-[680px] sm:min-h-[640px] lg:min-h-[800px] flex items-center justify-start overflow-hidden pt-28 sm:pt-36 lg:pt-40 pb-20 px-6 sm:px-12 lg:px-20 z-10 mt-[70px]">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 scale-105"

@@ -1,17 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, Mail, MapPin, Send, CheckCircle2 } from 'lucide-react';
+import { Phone, CheckCircle2, Calendar, Clock, Sparkles, Send } from 'lucide-react';
 import ServicePriceList from '../../Components/Service-price-list';
 import FAQSection from '../../Components/FAQSection';
+import TestimonialsSection from '../../Components/TestimonialsSection';
 
 export default function GetQuotePage({ setCurrentPage }) {
+  // Calculator state
+  const [cleaningType, setCleaningType] = useState('200'); // Home Cleaning ($200)
+  const [frequency, setFrequency] = useState('50'); // One-Time ($50)
+  const [cleaningPackage, setCleaningPackage] = useState('80'); // Basic Cleaning ($80)
+  
+  const [sqFootage, setSqFootage] = useState(20);
+  const [roomNumber, setRoomNumber] = useState(1);
+  const [bathroomNumber, setBathroomNumber] = useState(1);
+
+  // Add-on toggles (+$10 each)
+  const [addons, setAddons] = useState({
+    fridge: false,
+    oven: false,
+    windows: false,
+    carpet: false,
+    balcony: false,
+    laundry: false,
+    linen: false,
+    furniture: false,
+  });
+
+  // Additional info & booking
+  const [preferredTime, setPreferredTime] = useState('During Business Hours');
+  const [hasPets, setHasPets] = useState('No');
+  const [homeType, setHomeType] = useState('Apartment / Condo');
+  const [serviceDate, setServiceDate] = useState('');
+
+  // Contact & submission
   const [submitted, setSubmitted] = useState(false);
-  const [quoteData, setQuoteData] = useState({
+  const [contactData, setContactData] = useState({
     name: '',
     email: '',
     phone: '',
-    serviceType: 'Home Cleaning',
-    squareFeet: '1000-1500 sq ft',
-    frequency: 'Bi-Weekly',
     comments: ''
   });
 
@@ -19,234 +45,424 @@ export default function GetQuotePage({ setCurrentPage }) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
+  // Calculate live total price
+  const calculateTotal = () => {
+    let total = Number(cleaningType) + Number(frequency) + Number(cleaningPackage);
+    total += sqFootage * 1;
+    total += roomNumber * 15;
+    total += bathroomNumber * 20;
+
+    // Addons cost
+    const activeAddonsCount = Object.values(addons).filter(Boolean).length;
+    total += activeAddonsCount * 10;
+
+    return total;
+  };
+
+  const toggleAddon = (key) => {
+    setAddons((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);
-      setQuoteData({
-        name: '',
-        email: '',
-        phone: '',
-        serviceType: 'Home Cleaning',
-        squareFeet: '1000-1500 sq ft',
-        frequency: 'Bi-Weekly',
-        comments: ''
-      });
-    }, 4000);
+      setContactData({ name: '', email: '', phone: '', comments: '' });
+    }, 5000);
   };
 
+  const totalPrice = calculateTotal();
+
   return (
-    <div className="w-full bg-[#FAF8F5] min-h-screen text-zinc-900 font-sans">
-      {/* Hero Banner */}
-      <section className="relative w-full min-h-[420px] sm:min-h-[480px] flex items-center justify-start overflow-hidden pt-28 sm:pt-36 pb-16 px-6 sm:px-12 lg:px-20 z-10 mt-[70px] bg-zinc-900">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
-          style={{
-            backgroundImage:
-              'url("https://qleen.bold-themes.com/demo-01/wp-content/uploads/sites/2/2025/07/hero_services.jpg")',
-          }}
-        />
-        <div className="relative z-10 max-w-7xl mx-auto w-full">
-          <div className="max-w-3xl text-left space-y-3">
-            <span className="text-[#ff7f00] text-3xl sm:text-4xl font-['Caveat'] tracking-wide font-normal block">
-              Free Estimate
+    <div className="w-full bg-[#FAF8F5] min-h-screen text-zinc-900 font-sans pt-[80px]">
+      
+      {/* Top Banner Hero Section with Giant Watermark Typography */}
+      <section className="relative w-full overflow-hidden bg-[#FAF8F5] pt-20 sm:pt-28 pb-28 sm:pb-36 px-4 sm:px-6 lg:px-8 text-center select-none min-h-[480px] flex items-center justify-center">
+        <div className="max-w-[1400px] mx-auto relative flex flex-col items-center justify-center">
+          
+          {/* Giant "cost estimate" backdrop text in single line - fully fitted */}
+          <h1 className="text-[10vw] sm:text-[11.5vw] font-black text-[#3d8c54] leading-none tracking-tight uppercase font-sans pointer-events-none z-0 scale-y-105 whitespace-nowrap">
+            cost estimate
+          </h1>
+
+          {/* Floating Glove Hero Image Overlay */}
+          <div className="absolute z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%] pointer-events-none">
+            <img
+              src="https://qleen.bold-themes.com/demo-01/wp-content/uploads/sites/2/2025/07/hero_get_quote.png"
+              alt="Cleaning Glove"
+              className="w-48 sm:w-64 md:w-80 h-auto drop-shadow-xl hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+
+          {/* Decorative Floating Sparkle Badge */}
+          <div className="hidden lg:block absolute right-[15%] bottom-4 z-20 animate-bounce duration-1000">
+            <img
+              src="https://qleen.bold-themes.com/demo-01/wp-content/uploads/sites/2/2025/08/floating_image_08.png"
+              alt="Floating decorative star"
+              className="w-28 h-28 object-contain -rotate-12"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Cost Calculator Section Header & Features Grid */}
+      <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-10">
+          
+          {/* Headline */}
+          <div className="lg:col-span-6 space-y-2 text-left">
+            <span className="text-[#ff7f00] font-['Caveat'] text-3xl sm:text-4xl font-normal block tracking-wide">
+              Cost Calculator
             </span>
-            <h1 className="text-white text-4xl sm:text-6xl font-bold tracking-tight leading-tight">
-              Get A Instant Cleaning Quote
-            </h1>
-            <p className="text-zinc-300 text-base sm:text-lg max-w-xl font-medium">
-              Tell us about your cleaning needs and we'll craft a customized estimate within minutes.
-            </p>
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-zinc-900 leading-tight">
+              Get a Detailed Estimate for Your Cleaning Needs
+            </h2>
           </div>
-        </div>
-      </section>
 
-      {/* Quote Form & Details */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-12 py-16">
-        <div className="bg-white rounded-[2.5rem] p-8 sm:p-12 shadow-xl border border-zinc-100/80">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          {/* Buttons */}
+          <div className="lg:col-span-6 flex flex-wrap items-center justify-start lg:justify-end gap-4">
+            <button
+              onClick={() => {
+                const el = document.getElementById('calculator-form');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="bg-[#ff7f00] hover:bg-[#e06f00] text-white font-extrabold text-sm px-7 py-4 rounded-full shadow-md hover:shadow-lg transition-all cursor-pointer"
+            >
+              Book Online
+            </button>
             
-            {/* Form Column */}
-            <div className="lg:col-span-7 space-y-6">
-              <div>
-                <span className="text-[#ff7f00] font-['Caveat'] text-2xl font-bold block">
-                  Quick Quote Request
-                </span>
-                <h2 className="text-3xl font-extrabold text-zinc-900">
-                  Custom Cleaning Estimate
-                </h2>
+            <a
+              href="tel:8442429464"
+              className="flex items-center gap-3 bg-white border border-zinc-200 text-zinc-900 hover:border-[#ff7f00] font-extrabold text-sm px-6 py-3.5 rounded-full shadow-sm transition-all"
+            >
+              <div className="w-8 h-8 rounded-full bg-[#ff7f00] text-white flex items-center justify-center">
+                <Phone className="w-4 h-4" />
               </div>
+              <span>(844) 242-9464</span>
+            </a>
+          </div>
+        </div>
 
-              {submitted ? (
-                <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 p-8 rounded-3xl text-center space-y-3">
-                  <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto" />
-                  <h3 className="text-2xl font-bold">Quote Request Received!</h3>
-                  <p className="text-sm">
-                    Thank you! Our team is calculating your estimate and will get back to you shortly.
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-xs font-bold text-zinc-700 block mb-1">Full Name *</label>
-                      <input
-                        type="text"
-                        required
-                        placeholder="John Doe"
-                        value={quoteData.name}
-                        onChange={(e) => setQuoteData({ ...quoteData, name: e.target.value })}
-                        className="w-full p-3.5 rounded-xl border border-zinc-200 text-sm bg-zinc-50 focus:outline-none focus:border-[#ff7f00]"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-xs font-bold text-zinc-700 block mb-1">Phone Number *</label>
-                      <input
-                        type="tel"
-                        required
-                        placeholder="(844) 242-9464"
-                        value={quoteData.phone}
-                        onChange={(e) => setQuoteData({ ...quoteData, phone: e.target.value })}
-                        className="w-full p-3.5 rounded-xl border border-zinc-200 text-sm bg-zinc-50 focus:outline-none focus:border-[#ff7f00]"
-                      />
-                    </div>
-                  </div>
+        {/* Sub-headline description & Feature bullets */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-b border-zinc-200/80 pb-12">
+          <div className="lg:col-span-6 text-left text-zinc-600 font-medium text-base sm:text-lg leading-relaxed">
+            Use the form below to estimate your home cleaning service. We’ll follow up with a personalized quote and scheduling options.
+          </div>
 
-                  <div>
-                    <label className="text-xs font-bold text-zinc-700 block mb-1">Email Address *</label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="john@example.com"
-                      value={quoteData.email}
-                      onChange={(e) => setQuoteData({ ...quoteData, email: e.target.value })}
-                      className="w-full p-3.5 rounded-xl border border-zinc-200 text-sm bg-zinc-50 focus:outline-none focus:border-[#ff7f00]"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div>
-                      <label className="text-xs font-bold text-zinc-700 block mb-1">Service Type</label>
-                      <select
-                        value={quoteData.serviceType}
-                        onChange={(e) => setQuoteData({ ...quoteData, serviceType: e.target.value })}
-                        className="w-full p-3.5 rounded-xl border border-zinc-200 text-sm bg-zinc-50 text-zinc-800 focus:outline-none focus:border-[#ff7f00]"
-                      >
-                        <option value="Home Cleaning">Home Cleaning</option>
-                        <option value="Office Cleaning">Office Cleaning</option>
-                        <option value="Move In/Out Clean">Move In/Out Clean</option>
-                        <option value="Deep Clean">Deep Clean</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="text-xs font-bold text-zinc-700 block mb-1">Square Feet</label>
-                      <select
-                        value={quoteData.squareFeet}
-                        onChange={(e) => setQuoteData({ ...quoteData, squareFeet: e.target.value })}
-                        className="w-full p-3.5 rounded-xl border border-zinc-200 text-sm bg-zinc-50 text-zinc-800 focus:outline-none focus:border-[#ff7f00]"
-                      >
-                        <option value="Under 1000 sq ft">Under 1000 sq ft</option>
-                        <option value="1000-1500 sq ft">1000-1500 sq ft</option>
-                        <option value="1500-2500 sq ft">1500-2500 sq ft</option>
-                        <option value="2500+ sq ft">2500+ sq ft</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="text-xs font-bold text-zinc-700 block mb-1">Frequency</label>
-                      <select
-                        value={quoteData.frequency}
-                        onChange={(e) => setQuoteData({ ...quoteData, frequency: e.target.value })}
-                        className="w-full p-3.5 rounded-xl border border-zinc-200 text-sm bg-zinc-50 text-zinc-800 focus:outline-none focus:border-[#ff7f00]"
-                      >
-                        <option value="One Time">One Time</option>
-                        <option value="Weekly">Weekly</option>
-                        <option value="Bi-Weekly">Bi-Weekly</option>
-                        <option value="Monthly">Monthly</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-bold text-zinc-700 block mb-1">Additional Notes</label>
-                    <textarea
-                      rows="3"
-                      placeholder="Tell us any specific requirements or details..."
-                      value={quoteData.comments}
-                      onChange={(e) => setQuoteData({ ...quoteData, comments: e.target.value })}
-                      className="w-full p-3.5 rounded-xl border border-zinc-200 text-sm bg-zinc-50 focus:outline-none focus:border-[#ff7f00]"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full bg-[#ff7f00] hover:bg-[#e06f00] text-white py-4 rounded-2xl font-bold text-sm shadow-md transition flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <Send className="w-4 h-4" />
-                    <span>Calculate &amp; Request Quote</span>
-                  </button>
-                </form>
-              )}
+          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="w-5 h-5 text-[#43934a] shrink-0" />
+              <span className="text-xs sm:text-sm font-bold text-zinc-800">Background checked cleaners</span>
             </div>
-
-            {/* Sidebar Details */}
-            <div className="lg:col-span-5 bg-[#FAF8F5] p-8 rounded-3xl space-y-8 flex flex-col justify-between border border-zinc-100">
-              <div className="space-y-6">
-                <h3 className="text-2xl font-bold text-zinc-900">Why Choose Qleen?</h3>
-                
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#43934a]/15 text-[#43934a] flex items-center justify-center shrink-0 mt-0.5">
-                      <CheckCircle2 className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-sm text-zinc-900">100% Satisfaction Guarantee</h4>
-                      <p className="text-xs text-zinc-600 mt-0.5">If you're not happy, we re-clean for free within 24 hours.</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#43934a]/15 text-[#43934a] flex items-center justify-center shrink-0 mt-0.5">
-                      <CheckCircle2 className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-sm text-zinc-900">Transparent Flat-Rate Pricing</h4>
-                      <p className="text-xs text-zinc-600 mt-0.5">No hidden charges or unexpected upsells on arrival.</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#43934a]/15 text-[#43934a] flex items-center justify-center shrink-0 mt-0.5">
-                      <CheckCircle2 className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-sm text-zinc-900">Vetted &amp; Insured Cleaners</h4>
-                      <p className="text-xs text-zinc-600 mt-0.5">Every team member passes rigorous background checks.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-6 border-t border-zinc-200/80 space-y-3">
-                <div className="flex items-center gap-3 text-zinc-800">
-                  <Phone className="w-5 h-5 text-[#ff7f00]" />
-                  <span className="font-bold text-sm">(844) 242-9464</span>
-                </div>
-                <div className="flex items-center gap-3 text-zinc-800">
-                  <Mail className="w-5 h-5 text-[#ff7f00]" />
-                  <span className="font-medium text-sm">support@qleen.com</span>
-                </div>
-              </div>
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="w-5 h-5 text-[#43934a] shrink-0" />
+              <span className="text-xs sm:text-sm font-bold text-zinc-800">No contracts or commitments</span>
             </div>
-
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="w-5 h-5 text-[#43934a] shrink-0" />
+              <span className="text-xs sm:text-sm font-bold text-zinc-800">Easy last minute bookings</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="w-5 h-5 text-[#43934a] shrink-0" />
+              <span className="text-xs sm:text-sm font-bold text-zinc-800">Insured up to $1M</span>
+            </div>
           </div>
         </div>
       </section>
 
+      {/* Main Interactive Cost Calculator Form Container */}
+      <section id="calculator-form" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <div className="bg-white rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-12 shadow-xl border border-zinc-100/90 text-left space-y-10">
+          
+          {/* SECTION 1: SERVICE TYPE */}
+          <div className="space-y-6">
+            <h3 className="text-2xl font-bold text-zinc-900 border-b border-zinc-200 pb-3">
+              Service Type
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Type of cleaning */}
+              <div className="space-y-2">
+                <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-500 block">
+                  TYPE OF CLEANING
+                </label>
+                <select
+                  value={cleaningType}
+                  onChange={(e) => setCleaningType(e.target.value)}
+                  className="w-full p-4 rounded-xl border border-zinc-200 bg-white font-semibold text-sm text-zinc-800 focus:outline-none focus:border-[#ff7f00] transition-colors shadow-sm cursor-pointer"
+                >
+                  <option value="200">Home Cleaning</option>
+                  <option value="250">Office Cleaning</option>
+                  <option value="300">Move in/out Cleaning</option>
+                </select>
+              </div>
+
+              {/* Cleaning Frequency */}
+              <div className="space-y-2">
+                <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-500 block">
+                  CLEANING FREQUENCY
+                </label>
+                <select
+                  value={frequency}
+                  onChange={(e) => setFrequency(e.target.value)}
+                  className="w-full p-4 rounded-xl border border-zinc-200 bg-white font-semibold text-sm text-zinc-800 focus:outline-none focus:border-[#ff7f00] transition-colors shadow-sm cursor-pointer"
+                >
+                  <option value="50">One-Time</option>
+                  <option value="30">Twice a Week</option>
+                  <option value="20">Monthly</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Cleaning Package */}
+            <div className="space-y-2">
+              <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-500 block">
+                CLEANING PACKAGE
+              </label>
+              <select
+                value={cleaningPackage}
+                onChange={(e) => setCleaningPackage(e.target.value)}
+                className="w-full p-4 rounded-xl border border-zinc-200 bg-white font-semibold text-sm text-zinc-800 focus:outline-none focus:border-[#ff7f00] transition-colors shadow-sm cursor-pointer"
+              >
+                <option value="80">Basic Cleaning - Light maintenance, regular upkeep, up to 50m2</option>
+                <option value="120">Deep Cleaning - Includes baseboards, behind appliances, etc.</option>
+                <option value="150">Move in/out Cleaning - Empty home, deep clean of all rooms, bathrooms, kitchen</option>
+              </select>
+            </div>
+          </div>
+
+          {/* SECTION 2: SPACE SIZE */}
+          <div className="space-y-6 pt-4">
+            <h3 className="text-2xl font-bold text-zinc-900 border-b border-zinc-200 pb-3">
+              Space Size
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Square Footage Slider */}
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-500">
+                    SQUARE FOOTAGE
+                  </label>
+                  <span className="bg-[#ff7f00] text-white font-black text-xs px-3 py-1 rounded-full shadow-sm">
+                    {sqFootage} m²
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="20"
+                  max="200"
+                  step="10"
+                  value={sqFootage}
+                  onChange={(e) => setSqFootage(Number(e.target.value))}
+                  className="w-full h-2 bg-zinc-200 rounded-lg appearance-none cursor-pointer accent-[#ff7f00]"
+                />
+                <div className="flex justify-between text-[10px] text-zinc-400 font-bold">
+                  <span>20 m²</span>
+                  <span>200 m²</span>
+                </div>
+              </div>
+
+              {/* Room Number Slider */}
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-500">
+                    ROOM NUMBER
+                  </label>
+                  <span className="bg-[#ff7f00] text-white font-black text-xs px-3 py-1 rounded-full shadow-sm">
+                    {roomNumber}
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="1"
+                  max="10"
+                  step="1"
+                  value={roomNumber}
+                  onChange={(e) => setRoomNumber(Number(e.target.value))}
+                  className="w-full h-2 bg-zinc-200 rounded-lg appearance-none cursor-pointer accent-[#ff7f00]"
+                />
+                <div className="flex justify-between text-[10px] text-zinc-400 font-bold">
+                  <span>1 Room</span>
+                  <span>10 Rooms</span>
+                </div>
+              </div>
+
+              {/* Bathroom Number Slider */}
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-500">
+                    BATHROOM NUMBER
+                  </label>
+                  <span className="bg-[#ff7f00] text-white font-black text-xs px-3 py-1 rounded-full shadow-sm">
+                    {bathroomNumber}
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="1"
+                  max="7"
+                  step="1"
+                  value={bathroomNumber}
+                  onChange={(e) => setBathroomNumber(Number(e.target.value))}
+                  className="w-full h-2 bg-zinc-200 rounded-lg appearance-none cursor-pointer accent-[#ff7f00]"
+                />
+                <div className="flex justify-between text-[10px] text-zinc-400 font-bold">
+                  <span>1 Bath</span>
+                  <span>7 Baths</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* SECTION 3: ADD-ON SERVICES (OPTIONAL) */}
+          <div className="space-y-6 pt-4">
+            <h3 className="text-2xl font-bold text-zinc-900 border-b border-zinc-200 pb-3">
+              Add-On Services (Optional)
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+              {[
+                { key: 'fridge', label: 'INSIDE FRIDGE CLEANING' },
+                { key: 'oven', label: 'INSIDE OVEN CLEANING' },
+                { key: 'windows', label: 'INTERIOR WINDOWS' },
+                { key: 'carpet', label: 'CARPET CLEANING' },
+                { key: 'balcony', label: 'BALCONY OR PATIO CLEANING' },
+                { key: 'laundry', label: 'LAUNDRY WASH & FOLD' },
+                { key: 'linen', label: 'BED LINEN CHANGE' },
+                { key: 'furniture', label: 'FURNITURE VACUUMING' },
+              ].map((item) => (
+                <div
+                  key={item.key}
+                  className="p-4 rounded-xl border border-zinc-200 bg-zinc-50/50 flex flex-col justify-between space-y-3 hover:border-zinc-300 transition-colors"
+                >
+                  <span className="text-[11px] font-extrabold uppercase text-zinc-700 tracking-wider">
+                    {item.label}
+                  </span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-emerald-600">+$10</span>
+                    <button
+                      type="button"
+                      onClick={() => toggleAddon(item.key)}
+                      className={`w-12 h-6 rounded-full p-0.5 transition-colors relative flex items-center cursor-pointer ${
+                        addons[item.key] ? 'bg-[#43934a]' : 'bg-zinc-300'
+                      }`}
+                    >
+                      <div
+                        className={`w-5 h-5 rounded-full bg-white shadow-md transition-transform ${
+                          addons[item.key] ? 'translate-x-6' : 'translate-x-0'
+                        }`}
+                      />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* SECTION 4: ADDITIONAL INFO & SCHEDULING */}
+          <div className="space-y-6 pt-4">
+            <h3 className="text-2xl font-bold text-zinc-900 border-b border-zinc-200 pb-3">
+              Additional Info & Scheduling
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              {/* Preferred Time */}
+              <div className="space-y-2">
+                <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-500 block">
+                  PREFERRED CLEANING TIME
+                </label>
+                <select
+                  value={preferredTime}
+                  onChange={(e) => setPreferredTime(e.target.value)}
+                  className="w-full p-3.5 rounded-xl border border-zinc-200 bg-white font-semibold text-sm text-zinc-800 focus:outline-none focus:border-[#ff7f00] shadow-sm cursor-pointer"
+                >
+                  <option value="During Business Hours">During Business Hours</option>
+                  <option value="In the Morning">In the Morning</option>
+                  <option value="In the Evening">In the Evening</option>
+                </select>
+              </div>
+
+              {/* Pets */}
+              <div className="space-y-2">
+                <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-500 block">
+                  DO YOU HAVE PETS
+                </label>
+                <select
+                  value={hasPets}
+                  onChange={(e) => setHasPets(e.target.value)}
+                  className="w-full p-3.5 rounded-xl border border-zinc-200 bg-white font-semibold text-sm text-zinc-800 focus:outline-none focus:border-[#ff7f00] shadow-sm cursor-pointer"
+                >
+                  <option value="No">No</option>
+                  <option value="Yes">Yes</option>
+                </select>
+              </div>
+
+              {/* Home Type */}
+              <div className="space-y-2">
+                <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-500 block">
+                  HOME TYPE
+                </label>
+                <select
+                  value={homeType}
+                  onChange={(e) => setHomeType(e.target.value)}
+                  className="w-full p-3.5 rounded-xl border border-zinc-200 bg-white font-semibold text-sm text-zinc-800 focus:outline-none focus:border-[#ff7f00] shadow-sm cursor-pointer"
+                >
+                  <option value="Apartment / Condo">Apartment / Condo</option>
+                  <option value="Split Level">Split Level</option>
+                  <option value="Standalone House">Standalone House</option>
+                </select>
+              </div>
+
+              {/* Service Date */}
+              <div className="space-y-2">
+                <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-500 block">
+                  PREFERRED SERVICE DATE
+                </label>
+                <input
+                  type="date"
+                  value={serviceDate}
+                  onChange={(e) => setServiceDate(e.target.value)}
+                  className="w-full p-3.5 rounded-xl border border-zinc-200 bg-white font-semibold text-sm text-zinc-800 focus:outline-none focus:border-[#ff7f00] shadow-sm cursor-pointer"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* SECTION 5: TOTAL PILL BAR & NEXT BUTTON - Matching reference image */}
+          <div className="pt-8 border-t border-zinc-200/80">
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              {/* Green Total Pill Bar */}
+              <div className="flex-1 w-full bg-[#3d8c54] text-white rounded-full px-8 py-5 flex items-center justify-between shadow-md">
+                <span className="font-extrabold text-lg sm:text-xl tracking-wider uppercase">
+                  TOTAL
+                </span>
+                <span className="font-black text-2xl sm:text-3xl tracking-tight">
+                  $ {totalPrice.toFixed(2)}
+                </span>
+              </div>
+
+              {/* Orange NEXT Button */}
+              <button
+                type="button"
+                className="w-full sm:w-auto bg-[#ff7f00] hover:bg-[#e06f00] text-white font-extrabold text-base px-10 py-5 rounded-full shadow-md hover:shadow-lg transition-all cursor-pointer uppercase tracking-wider shrink-0"
+              >
+                NEXT
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Client Testimonials Section */}
+      <TestimonialsSection />
+
+      {/* Service Price List & FAQ Components */}
       <ServicePriceList />
       <FAQSection />
+
     </div>
   );
 }

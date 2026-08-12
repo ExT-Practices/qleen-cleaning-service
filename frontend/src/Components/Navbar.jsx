@@ -42,12 +42,12 @@ const navItems = [
       {
         title: "Blog",
         items: [
-          { name: "Standard View (Title on top)", href: "#" },
-          { name: "Standard View (Image on top)", href: "#" },
-          { name: "Columns View", href: "#" },
-          { name: "Zig-Zag View", href: "#" },
-          { name: "Simple View", href: "#" },
-          { name: "Grid View", href: "#" },
+          { name: "Standard View (Title on top)", href: "#blog-standard", pageKey: "blog-standard" },
+          { name: "Standard View (Image on top)", href: "#blog-standard", pageKey: "blog-standard" },
+          { name: "Columns View", href: "#blog-standard", pageKey: "blog-standard" },
+          { name: "Zig-Zag View", href: "#blog-standard", pageKey: "blog-standard" },
+          { name: "Simple View", href: "#blog-standard", pageKey: "blog-standard" },
+          { name: "Grid View", href: "#blog-standard", pageKey: "blog-standard" },
         ],
       },
       {
@@ -150,11 +150,10 @@ export default function Navbar({ currentPage = "home", setCurrentPage }) {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isWhiteHeader
-          ? "bg-white shadow-sm border-b border-zinc-100 py-3"
-          : "bg-transparent py-5"
-      }`}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isWhiteHeader
+        ? "bg-white shadow-sm border-b border-zinc-100 py-3"
+        : "bg-transparent py-5"
+        }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
         {/* Logo */}
@@ -194,11 +193,10 @@ export default function Navbar({ currentPage = "home", setCurrentPage }) {
                 <a
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.pageKey, item.href)}
-                  className={`flex items-center gap-1.5 font-semibold text-[15px] px-4 py-2 rounded-t-2xl transition-all duration-200 relative ${
-                    isWhiteHeader
-                      ? "text-zinc-800 group-hover:text-[#ff7f00] group-hover:bg-zinc-50"
-                      : "text-white group-hover:text-[#ff7f00] group-hover:bg-white group-hover:shadow-md"
-                  }`}
+                  className={`flex items-center gap-1.5 font-semibold text-[15px] px-4 py-2 rounded-t-2xl transition-all duration-200 relative ${isWhiteHeader
+                    ? "text-zinc-800 group-hover:text-[#ff7f00] group-hover:bg-zinc-50"
+                    : "text-white group-hover:text-[#ff7f00] group-hover:bg-white group-hover:shadow-md"
+                    }`}
                 >
                   {item.name}
                   {isActive && (
@@ -247,6 +245,7 @@ export default function Navbar({ currentPage = "home", setCurrentPage }) {
                               <a
                                 key={sIdx}
                                 href={subItem.href}
+                                onClick={(e) => handleNavClick(e, subItem.pageKey, subItem.href)}
                                 className="block pt-2 text-[14px] font-medium text-zinc-700 hover:text-[#ff7f00] transition duration-200"
                               >
                                 {subItem.name}
@@ -274,9 +273,8 @@ export default function Navbar({ currentPage = "home", setCurrentPage }) {
               <Phone className="w-4 h-4" />
             </span>
             <span
-              className={`font-bold text-[15px] ${
-                isWhiteHeader ? "text-zinc-900" : "text-white"
-              }`}
+              className={`font-bold text-[15px] ${isWhiteHeader ? "text-zinc-900" : "text-white"
+                }`}
             >
               (844) 242-9464
             </span>
@@ -285,20 +283,36 @@ export default function Navbar({ currentPage = "home", setCurrentPage }) {
           {/* Request Service Button */}
           <a
             href="#contact"
-            className="bg-[#ff7f00] hover:bg-[#e06f00] active:scale-95 text-white px-7 py-3 rounded-full text-[14px] font-bold tracking-wide shadow-md hover:shadow-orange-500/30 transition-all duration-300"
+            onClick={(e) => handleNavClick(e, "contact", "#contact")}
+            className="group relative flex items-center justify-center overflow-hidden rounded-full border-2 border-[#ff7f00] bg-[#ff7f00] px-7 py-3 text-[14px] font-bold tracking-wide text-white shadow-md active:scale-95 transition-transform duration-300 cursor-pointer"
           >
-            Request Service
+            {/* Center pill that grows in width + height */}
+            <span
+              className="
+      absolute left-1/2 top-1/2
+      h-full w-full
+      -translate-x-1/2 -translate-y-1/2
+      scale-0
+      rounded-full bg-white
+      transition-transform duration-500
+      ease-[cubic-bezier(0.22,1,0.36,1)]
+      group-hover:scale-100
+    "
+            />
+
+            <span className="relative z-10 text-white transition-colors duration-300 group-hover:text-[#ff7f00]">
+              Request Service
+            </span>
           </a>
         </div>
 
         {/* Mobile Hamburger Button */}
         <button
           onClick={() => setIsMobileOpen(!isMobileOpen)}
-          className={`lg:hidden p-2 rounded-xl transition ${
-            isWhiteHeader
-              ? "text-zinc-800 hover:bg-zinc-100"
-              : "text-white hover:bg-white/10"
-          }`}
+          className={`lg:hidden p-2 rounded-xl transition ${isWhiteHeader
+            ? "text-zinc-800 hover:bg-zinc-100"
+            : "text-white hover:bg-white/10"
+            }`}
           aria-label="Toggle navigation menu"
         >
           {isMobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -321,9 +335,8 @@ export default function Navbar({ currentPage = "home", setCurrentPage }) {
                 <span>{item.name}</span>
                 {(item.subMenu || item.isMegaMenu) && (
                   <ChevronDown
-                    className={`w-5 h-5 text-zinc-500 transition-transform ${
-                      activeMobileMenu === item.name ? "rotate-180" : ""
-                    }`}
+                    className={`w-5 h-5 text-zinc-500 transition-transform ${activeMobileMenu === item.name ? "rotate-180" : ""
+                      }`}
                   />
                 )}
               </button>

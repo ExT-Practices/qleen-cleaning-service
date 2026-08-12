@@ -8,6 +8,10 @@ import TestimonialsPage from "./pages/Testimonials/TestimonialsPage";
 import ContactPage from "./pages/Contact/ContactPage";
 import NotFoundPage from "./pages/NotFound/NotFoundPage";
 import UnderConstructionPage from "./pages/UnderConstruction/UnderConstructionPage";
+import SingleService from "./pages/Services/Single-service";
+import PricesPage from "./pages/Services/PricesPage";
+import GetQuotePage from "./pages/Services/GetQuotePage";
+import BlogStandardPage from "./pages/Blog/BlogStandardPage";
 import HowItWorks from "./Components/Howworks";
 import CleaningServicesStack from "./Components/Plans";
 import Cards from "./Components/Cards";
@@ -29,14 +33,22 @@ function App() {
         setCurrentPage("about");
       } else if (hash === "#services" || hash === "#services-page") {
         setCurrentPage("services");
+      } else if (hash === "#single-service" || hash === "#single-services") {
+        setCurrentPage("single-services");
       } else if (hash === "#testimonials" || hash === "#testimonials-page") {
         setCurrentPage("testimonials");
       } else if (hash === "#contact" || hash === "#contact-page") {
         setCurrentPage("contact");
+      } else if (hash === "#prices") {
+        setCurrentPage("prices");
+      } else if (hash === "#quote") {
+        setCurrentPage("quote");
       } else if (hash === "#404") {
         setCurrentPage("404");
       } else if (hash === "#construction") {
         setCurrentPage("construction");
+      } else if (hash === "#blog-standard" || hash === "#blog") {
+        setCurrentPage("blog-standard");
       } else {
         setCurrentPage("home");
       }
@@ -49,12 +61,20 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      {currentPage !== "construction" && (
+        <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      )}
 
       {currentPage === "about" ? (
         <AboutPage />
       ) : currentPage === "services" ? (
         <ServicesPage setCurrentPage={setCurrentPage} />
+      ) : currentPage === "single-services" ? (
+        <SingleService />
+      ) : currentPage === "prices" ? (
+        <PricesPage setCurrentPage={setCurrentPage} />
+      ) : currentPage === "quote" ? (
+        <GetQuotePage setCurrentPage={setCurrentPage} />
       ) : currentPage === "testimonials" ? (
         <TestimonialsPage />
       ) : currentPage === "contact" ? (
@@ -63,6 +83,8 @@ function App() {
         <NotFoundPage setCurrentPage={setCurrentPage} />
       ) : currentPage === "construction" ? (
         <UnderConstructionPage setCurrentPage={setCurrentPage} />
+      ) : currentPage === "blog-standard" ? (
+        <BlogStandardPage />
       ) : (
         <>
           <Hero />
@@ -79,7 +101,7 @@ function App() {
         </>
       )}
 
-      <Footer />
+      {currentPage !== "construction" && <Footer />}
     </div>
   );
 }

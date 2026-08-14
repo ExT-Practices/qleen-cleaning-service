@@ -64,12 +64,12 @@ const navItems = [
       {
         title: "Shop",
         items: [
-          { name: "Products", href: "#" },
-          { name: "On Sale", href: "#" },
-          { name: "Cart", href: "#" },
-          { name: "Checkout", href: "#" },
-          { name: "Order Tracking Form", href: "#" },
-          { name: "My Account", href: "#" },
+          { name: "Products", href: "#shop", pageKey: "shop" },
+          { name: "On Sale", href: "#shop", pageKey: "shop" },
+          { name: "Cart", href: "#shop", pageKey: "shop" },
+          { name: "Checkout", href: "#shop", pageKey: "shop" },
+          { name: "Order Tracking Form", href: "#shop", pageKey: "shop" },
+          { name: "My Account", href: "#shop", pageKey: "shop" },
         ],
       },
     ],
@@ -124,8 +124,9 @@ export default function Navbar({ currentPage = "home", setCurrentPage }) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeMobileMenu, setActiveMobileMenu] = useState(null);
 
-  // Force solid white navbar on non-home pages or when scrolled
-  const isWhiteHeader = currentPage !== "home" || isScrolled;
+  // Header is transparent at top for home and shop pages
+  const isTransparent = (currentPage === "home" || currentPage === "shop") && !isScrolled;
+  const isDarkText = currentPage === "shop" || isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -150,9 +151,9 @@ export default function Navbar({ currentPage = "home", setCurrentPage }) {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isWhiteHeader
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${!isTransparent
         ? "bg-white shadow-sm border-b border-zinc-100 py-3"
-        : "bg-transparent py-5"
+        : "bg-transparent py-4"
         }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
@@ -167,7 +168,7 @@ export default function Navbar({ currentPage = "home", setCurrentPage }) {
         >
           <img
             src={
-              isWhiteHeader
+              isDarkText
                 ? "https://qleen.bold-themes.com/demo-01/wp-content/uploads/sites/2/2019/02/logo_black.png"
                 : "https://qleen.bold-themes.com/demo-01/wp-content/uploads/sites/2/2025/09/logo_white.png"
             }
@@ -186,6 +187,7 @@ export default function Navbar({ currentPage = "home", setCurrentPage }) {
               (currentPage === "services" && item.name === "Services") ||
               (currentPage === "testimonials" && item.name === "About") ||
               (currentPage === "contact" && item.name === "About") ||
+              (currentPage === "shop" && item.name === "Pages") ||
               (currentPage === "home" && item.name === "Home");
 
             return (
@@ -193,7 +195,7 @@ export default function Navbar({ currentPage = "home", setCurrentPage }) {
                 <a
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.pageKey, item.href)}
-                  className={`flex items-center gap-1.5 font-semibold text-[15px] px-4 py-2 rounded-t-2xl transition-all duration-200 relative ${isWhiteHeader
+                  className={`flex items-center gap-1.5 font-semibold text-[15px] px-4 py-2 rounded-t-2xl transition-all duration-200 relative ${isDarkText
                     ? "text-zinc-800 group-hover:text-[#ff7f00] group-hover:bg-zinc-50"
                     : "text-white group-hover:text-[#ff7f00] group-hover:bg-white group-hover:shadow-md"
                     }`}
@@ -273,7 +275,7 @@ export default function Navbar({ currentPage = "home", setCurrentPage }) {
               <Phone className="w-4 h-4" />
             </span>
             <span
-              className={`font-bold text-[15px] ${isWhiteHeader ? "text-zinc-900" : "text-white"
+              className={`font-bold text-[15px] ${isDarkText ? "text-zinc-900" : "text-white"
                 }`}
             >
               (844) 242-9464
@@ -309,7 +311,7 @@ export default function Navbar({ currentPage = "home", setCurrentPage }) {
         {/* Mobile Hamburger Button */}
         <button
           onClick={() => setIsMobileOpen(!isMobileOpen)}
-          className={`lg:hidden p-2 rounded-xl transition ${isWhiteHeader
+          className={`lg:hidden p-2 rounded-xl transition ${isDarkText
             ? "text-zinc-800 hover:bg-zinc-100"
             : "text-white hover:bg-white/10"
             }`}

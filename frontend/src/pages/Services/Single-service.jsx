@@ -167,6 +167,8 @@ export default function SingleService() {
                 alt="Clean Floating Element"
                 className="w-28 h-28 md:w-48 md:h-48 object-contain animate-float filter drop-shadow-lg"
               />
+
+              
             </div>
           </div>
         </div>
@@ -178,7 +180,7 @@ export default function SingleService() {
         {/* Header Block with Actions */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-zinc-200/60 pb-8">
           <div className="space-y-2">
-            <span className="font-['Caveat'] text-[#ff7f00] text-3xl font-semibold italic block">
+            <span className="font-['Caveat'] text-[#ff7f00] text-3xl font-semibold italic block">d
               Step by step
             </span>
             <h2 className="text-4xl md:text-5xl font-extrabold text-zinc-900 tracking-tight leading-tight">

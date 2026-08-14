@@ -261,63 +261,74 @@ export default function ShopPage() {
              ===================================================================== */}
           <aside className="lg:col-span-4 space-y-10 text-left pl-0 lg:pl-4">
             
-            {/* 1. CART SECTION */}
+            {/* 1. CART SECTION (Matching Screenshot 1) */}
             <div className="space-y-3">
               <h3 className="text-2xl font-bold text-zinc-900">Cart</h3>
               
               {cartItems.length === 0 ? (
                 <p className="text-sm text-zinc-500">No products in the cart.</p>
               ) : (
-                <div className="space-y-3 bg-[#FAF8F5] p-5 rounded-3xl border border-zinc-100">
+                <div className="space-y-4">
                   <div className="divide-y divide-zinc-200/70">
                     {cartItems.map((item) => (
-                      <div key={item.product.id} className="py-2.5 first:pt-0 flex items-center justify-between text-xs">
-                        <div className="space-y-0.5">
-                          <div className="font-bold text-zinc-900">{item.product.title}</div>
-                          <div className="text-zinc-500">
-                            {item.quantity} × <span className="font-semibold text-zinc-800">${item.product.price.toFixed(2)}</span>
+                      <div key={item.product.id} className="py-3 first:pt-0 flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-3">
+                          {/* Round Thumbnail */}
+                          <div className="w-12 h-12 rounded-full bg-[#F9F8F5] p-1 border border-zinc-100 flex items-center justify-center shrink-0">
+                            <img
+                              src={item.product.image}
+                              alt={item.product.title}
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-sm text-zinc-900 line-clamp-1">
+                              {item.product.title}
+                            </h4>
+                            <div className="text-xs text-zinc-500 font-semibold">
+                              {item.quantity} × <span className="text-zinc-800">${item.product.price.toFixed(2)}</span>
+                            </div>
                           </div>
                         </div>
-                        <div className="flex items-center gap-1">
-                          <button
-                            onClick={() => handleUpdateQuantity(item.product.id, item.quantity - 1)}
-                            className="p-1 rounded bg-zinc-200 text-zinc-700 hover:bg-zinc-300 cursor-pointer"
-                          >
-                            <Minus className="w-3 h-3" />
-                          </button>
-                          <span className="font-bold px-1">{item.quantity}</span>
-                          <button
-                            onClick={() => handleUpdateQuantity(item.product.id, item.quantity + 1)}
-                            className="p-1 rounded bg-zinc-200 text-zinc-700 hover:bg-zinc-300 cursor-pointer"
-                          >
-                            <Plus className="w-3 h-3" />
-                          </button>
-                          <button
-                            onClick={() => handleRemoveItem(item.product.id)}
-                            className="ml-1 text-zinc-400 hover:text-rose-500 cursor-pointer p-1"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
+
+                        {/* Orange Circle Remove Button */}
+                        <button
+                          onClick={() => handleRemoveItem(item.product.id)}
+                          className="w-5 h-5 rounded-full bg-[#ff7f00] hover:bg-[#e06f00] text-white flex items-center justify-center font-bold text-[10px] cursor-pointer shrink-0 transition"
+                          title="Remove item"
+                        >
+                          ×
+                        </button>
                       </div>
                     ))}
                   </div>
 
-                  {/* Subtotal & Checkout */}
+                  {/* Subtotal */}
                   <div className="pt-3 border-t border-zinc-200/80 flex items-center justify-between text-sm">
-                    <span className="font-bold text-zinc-700">Subtotal:</span>
-                    <span className="font-extrabold text-base text-[#ff7f00]">${cartSubtotal.toFixed(2)}</span>
+                    <span className="font-bold text-zinc-900">Subtotal:</span>
+                    <span className="font-extrabold text-base text-zinc-900">${cartSubtotal.toFixed(2)}</span>
                   </div>
 
-                  <button
-                    onClick={() => {
-                      setIsCheckoutOpen(true);
-                      setCheckoutSuccess(false);
-                    }}
-                    className="w-full bg-[#ff7f00] hover:bg-[#e06f00] text-white font-bold py-3 rounded-full text-xs uppercase tracking-wider shadow-md transition cursor-pointer mt-2"
-                  >
-                    Checkout
-                  </button>
+                  {/* View Cart & Checkout Pill Buttons */}
+                  <div className="flex items-center gap-3 pt-1">
+                    <button
+                      onClick={() => {
+                        window.location.hash = "cart";
+                      }}
+                      className="flex-1 bg-[#ff7f00] hover:bg-[#e06f00] text-white font-bold py-3 px-4 rounded-full text-xs text-center transition cursor-pointer shadow-xs"
+                    >
+                      View cart
+                    </button>
+                    <button
+                      onClick={() => {
+                        setIsCheckoutOpen(true);
+                        setCheckoutSuccess(false);
+                      }}
+                      className="flex-1 border-2 border-[#ff7f00] text-[#ff7f00] hover:bg-[#ff7f00] hover:text-white font-bold py-2.5 px-4 rounded-full text-xs text-center transition cursor-pointer"
+                    >
+                      Checkout
+                    </button>
+                  </div>
                 </div>
               )}
             </div>

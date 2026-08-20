@@ -23,7 +23,7 @@ export default function HowItWorks() {
   return (
     <section className="bg-[#FAF8F5] py-16 sm:py-20 px-4 sm:px-8 lg:px-12 rounded-t-[3rem] sm:rounded-t-[70px] mt-0 z-10">
       <div className="max-w-7xl mx-auto">
-        
+
         {/* Header Elements */}
         <div className="text-center mb-10 sm:mb-16">
           <span className="text-[#f2871b] font-serif italic text-xl sm:text-2xl block mb-2 sm:mb-3">
@@ -36,7 +36,7 @@ export default function HowItWorks() {
 
         {/* 4-Column Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          
+
           {/* Map through the 3 white standard cards */}
           {standardCards.map((card, index) => (
             <div
@@ -80,7 +80,7 @@ export default function HowItWorks() {
               />
             </div>
           </div>
-          
+
         </div>
       </div>
     </section>

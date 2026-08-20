@@ -3,7 +3,7 @@ import { Phone, ArrowLeft } from 'lucide-react';
 
 export default function NotFoundPage({ setCurrentPage }) {
   return (
-    <div className="pt-28 pb-20 bg-[#FAF8F5] min-h-[90vh] flex flex-col items-center justify-center overflow-hidden">
+    <div className="pt-22 pb-20 bg-[#FAF8F5] min-h-[90vh] flex flex-col items-center justify-center overflow-hidden">
       
       {/* Full-width graphic section with no horizontal constraints */}
       <div className="w-full relative flex items-center justify-center py-10 sm:py-16 select-none overflow-visible">

@@ -70,6 +70,7 @@ const navItems = [
           { name: "Checkout", href: "#checkout", pageKey: "checkout" },
           { name: "Order Tracking Form", href: "#order-tracking", pageKey: "tracking" },
           { name: "My Account", href: "#my-account", pageKey: "account" },
+          { name: "Admin Portal", href: "#admin", pageKey: "admin" },
         ],
       },
     ],

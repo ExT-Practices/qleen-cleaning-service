@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { PRODUCTS_DATA, SHOP_CATEGORIES } from './shopData';
 
-export default function ShopPage() {
+export default function ShopPage({ onSelectProduct }) {
   // Filter & Sort State
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('default');
@@ -202,8 +202,12 @@ export default function ShopPage() {
                   {/* Product Image */}
                   <div
                     onClick={() => {
-                      setQuickViewProduct(product);
-                      setQuickViewQuantity(1);
+                      if (onSelectProduct) {
+                        onSelectProduct(product.id);
+                      } else {
+                        setQuickViewProduct(product);
+                        setQuickViewQuantity(1);
+                      }
                     }}
                     className="relative w-full h-48 flex items-center justify-center cursor-pointer overflow-hidden rounded-2xl mb-4"
                   >
@@ -223,7 +227,17 @@ export default function ShopPage() {
 
                   {/* Product Title & Price */}
                   <div className="space-y-1.5 text-left mb-4">
-                    <h3 className="font-bold text-base text-zinc-900 line-clamp-1 group-hover:text-[#ff7f00] transition">
+                    <h3
+                      onClick={() => {
+                        if (onSelectProduct) {
+                          onSelectProduct(product.id);
+                        } else {
+                          setQuickViewProduct(product);
+                          setQuickViewQuantity(1);
+                        }
+                      }}
+                      className="font-bold text-base text-zinc-900 line-clamp-1 group-hover:text-[#ff7f00] transition cursor-pointer"
+                    >
                       {product.title}
                     </h3>
                     
@@ -321,8 +335,7 @@ export default function ShopPage() {
                     </button>
                     <button
                       onClick={() => {
-                        setIsCheckoutOpen(true);
-                        setCheckoutSuccess(false);
+                        window.location.hash = "checkout";
                       }}
                       className="flex-1 border-2 border-[#ff7f00] text-[#ff7f00] hover:bg-[#ff7f00] hover:text-white font-bold py-2.5 px-4 rounded-full text-xs text-center transition cursor-pointer"
                     >
@@ -472,97 +485,6 @@ export default function ShopPage() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* =========================================================================
-          4. CHECKOUT MODAL
-         ========================================================================= */}
-      {isCheckoutOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative text-left">
-            <button
-              onClick={() => setIsCheckoutOpen(false)}
-              className="absolute top-5 right-5 text-zinc-400 hover:text-zinc-800 p-2 rounded-full hover:bg-zinc-100 transition cursor-pointer"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {checkoutSuccess ? (
-              <div className="py-8 text-center space-y-4">
-                <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-                  <CheckCircle2 className="w-10 h-10" />
-                </div>
-                <h3 className="text-2xl font-bold text-zinc-900">Order Placed Successfully!</h3>
-                <p className="text-xs text-zinc-500">
-                  Thank you for your purchase. Your order total is <strong>${cartSubtotal.toFixed(2)}</strong>.
-                </p>
-                <button
-                  onClick={() => {
-                    setIsCheckoutOpen(false);
-                    setCartItems([]);
-                  }}
-                  className="bg-[#ff7f00] text-white font-bold py-2.5 px-6 rounded-full text-xs shadow-md cursor-pointer"
-                >
-                  Done
-                </button>
-              </div>
-            ) : (
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setCheckoutSuccess(true);
-                }}
-                className="space-y-4"
-              >
-                <h3 className="text-xl font-bold text-zinc-900">Checkout</h3>
-                
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-xs font-bold text-zinc-700 block mb-1">First Name *</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="John"
-                      className="w-full p-3 rounded-xl border border-zinc-200 text-xs bg-zinc-50 focus:outline-none focus:border-[#ff7f00]"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-xs font-bold text-zinc-700 block mb-1">Last Name *</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Doe"
-                      className="w-full p-3 rounded-xl border border-zinc-200 text-xs bg-zinc-50 focus:outline-none focus:border-[#ff7f00]"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="text-xs font-bold text-zinc-700 block mb-1">Address *</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="123 Street Address"
-                    className="w-full p-3 rounded-xl border border-zinc-200 text-xs bg-zinc-50 focus:outline-none focus:border-[#ff7f00]"
-                  />
-                </div>
-
-                <div className="pt-2 flex items-center justify-between border-t border-zinc-100 text-sm">
-                  <span className="font-bold text-zinc-700">Total:</span>
-                  <span className="font-extrabold text-lg text-[#ff7f00]">${cartSubtotal.toFixed(2)}</span>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full bg-[#ff7f00] hover:bg-[#e06f00] text-white py-3 rounded-full font-bold text-xs uppercase shadow-md cursor-pointer"
-                >
-                  Place Order
-                </button>
-              </form>
-            )}
-
           </div>
         </div>
       )}

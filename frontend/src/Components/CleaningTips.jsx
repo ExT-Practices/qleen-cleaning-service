@@ -3,10 +3,11 @@ import React from 'react';
 const blogPosts = [
   {
     id: 1,
+    slug: 'how-to-clean-all-types-of-cutting-boards',
     date: 'July 20, 2025',
     title: 'How to Clean All Types of Cutting Boards',
     image: 'https://qleen.bold-themes.com/demo-01/wp-content/uploads/sites/2/2018/09/post_01-925x660.jpg',
-    link: '#',
+    link: '#blog-single-how-to-clean-all-types-of-cutting-boards',
     cardStyle: 'bg-white p-4 shadow-sm text-left',
     imageAspect: 'aspect-[4/3]',
     titleColor: 'text-[#1f2937]',
@@ -15,10 +16,11 @@ const blogPosts = [
   },
   {
     id: 2,
+    slug: 'how-to-clean-and-maintain-your-sofa-bed',
     date: 'July 10, 2025',
     title: 'How To Clean and Maintain Your Sofa Bed',
     image: 'https://qleen.bold-themes.com/demo-01/wp-content/uploads/sites/2/2022/03/post_12-600x750.jpg',
-    link: '#',
+    link: '#blog-single-how-to-clean-and-maintain-your-sofa-bed',
     cardStyle: 'relative overflow-hidden text-left text-white min-h-[360px] flex flex-col justify-end p-6',
     imageAspect: 'absolute inset-0 w-full h-full object-cover',
     titleColor: 'text-white font-bold',
@@ -27,10 +29,11 @@ const blogPosts = [
   },
   {
     id: 3,
+    slug: 'best-robot-vacuums-for-pet-hair-in-2025',
     date: 'June 30, 2025',
     title: 'Best Robot Vacuums for Pet Hair in 2025',
     image: 'https://qleen.bold-themes.com/demo-01/wp-content/uploads/sites/2/2022/03/post_11-925x660.jpg',
-    link: '#',
+    link: '#blog-single-best-robot-vacuums-for-pet-hair-in-2025',
     cardStyle: 'bg-white p-4 shadow-sm text-left',
     imageAspect: 'aspect-[4/3]',
     titleColor: 'text-[#1f2937]',

@@ -67,9 +67,9 @@ const navItems = [
           { name: "Products", href: "#shop", pageKey: "shop" },
           { name: "On Sale", href: "#shop", pageKey: "shop" },
           { name: "Cart", href: "#cart", pageKey: "cart" },
-          { name: "Checkout", href: "#shop", pageKey: "shop" },
-          { name: "Order Tracking Form", href: "#shop", pageKey: "shop" },
-          { name: "My Account", href: "#shop", pageKey: "shop" },
+          { name: "Checkout", href: "#checkout", pageKey: "checkout" },
+          { name: "Order Tracking Form", href: "#order-tracking", pageKey: "tracking" },
+          { name: "My Account", href: "#my-account", pageKey: "account" },
         ],
       },
     ],
@@ -124,9 +124,9 @@ export default function Navbar({ currentPage = "home", setCurrentPage }) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeMobileMenu, setActiveMobileMenu] = useState(null);
 
-  // Header is transparent at top for home, shop, and cart pages
-  const isTransparent = (currentPage === "home" || currentPage === "shop" || currentPage === "cart") && !isScrolled;
-  const isDarkText = currentPage === "shop" || currentPage === "cart" || isScrolled;
+  // Header transparent only at top for home page
+  const isTransparent = currentPage === "home" && !isScrolled;
+  const isDarkText = currentPage !== "home" || isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
